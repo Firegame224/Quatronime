@@ -25,7 +25,7 @@ export class KarakterService {
         imageUrl: karakter.imageUrl,
         role: karakter.role,
         cover: karakter.cover,
-        animeId: animeId,
+        animeId : Number(animeId),
       },
     });
   }

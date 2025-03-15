@@ -47,12 +47,14 @@ const KarakterForm: React.FC<KarakterFormProps> = ({ data }) => {
   });
   const params = useParams();
   const router = useRouter();
-  const charId = params.charId
+  const charId = params.charId === "new" ? null : params.charId;
   const [isopen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const titleButton = charId ? "Update Data" : "Tambahkan Karakter";
   const animeId = parseInt(params.animeId as string, 10);
   const isi = charId ? "Edit data Karakter" : "Tambah data Karakter"
+  console.log(animeId)
+  console.log(charId)
   const onDelete = async () => {
     try {
       setIsLoading(true);
@@ -85,7 +87,7 @@ const KarakterForm: React.FC<KarakterFormProps> = ({ data }) => {
       const method = charId ? "PATCH" : "POST";
       const url = charId
         ? `/api/nimes/${animeId}/character/${charId}`
-        : `/api/nimes/${animeId}/character`;
+        : `/api/nimes/${animeId}/character/`;
 
       const response = await fetch(url, {
         method,
@@ -99,6 +101,7 @@ const KarakterForm: React.FC<KarakterFormProps> = ({ data }) => {
         throw new Error(`Terjadi kesalahan: ${response.statusText}`);
       }
       if (response.ok){
+        
       toast.success("Berhasil menyimpan data karakter");
       router.push(`/admin/dashboard/${animeId}/karakter`);
       }

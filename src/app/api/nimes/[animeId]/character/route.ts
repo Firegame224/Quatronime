@@ -13,10 +13,10 @@ export async function GET(request: NextRequest, { params }: { params: { animeId:
   }
 }
 
-export async function POST(request:NextRequest,{params}:{params:{animeId:string}}) {
+export async function POST(request:NextRequest,{params}:{params:{animeId:number}}) {
     try {
       const body = await request.json();
-      const createKarakter = await karakterService.createKarakter(Number(params.animeId),body);
+      const createKarakter = await karakterService.createKarakter(params.animeId,body);
       return NextResponse.json({ createKarakter }, { status: 201 });
     } catch (error) {
       return NextResponse.json({ message: `Error: ${error}` }, { status: 500 });
