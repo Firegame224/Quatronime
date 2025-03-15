@@ -9,29 +9,89 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 model Anime {
-  id         Int @id @default(autoincrement())
-  malId     Int @unique 
+  mal_id     Int         @id
   title      String
+  imageUrl   String
   synopsis   String?
-  imageUrl  String
-  genres     String
-  episodes   String?
-  createdAt  DateTime @default(now())
-
-  characters Character[]
+  ranking    Int?
+  score      Float?
+  type       String?
+  episodes   Int?
+  genres     String[]
+  aired      String?
+  popularity Int?
+  members    Int?
+  favorites  Int?
+  status     String?
+  source     String?
 }
 
-model Character {
-  id         Int     @id @default(autoincrement())
-  malId      Int     @unique 
-  name       String
-  imageUrl   String
-  animeId    Int
-  anime      Anime   @relation(fields: [animeId], references: [id])
-  createdAt  DateTime @default(now())
+model Anime2 {
+  id         Int             @id @default(autoincrement())
+  title      String
+  imageUrl   String?
+  synopsis   String?
+  ranking    Int?
+  score      Float?
+  type       String?
+  episodes   Int?
+  genres     Animegenre[] @relation("Anime to Genre")
+  karakter   Karakter[]@relation("Anime to Karakter")
+  aired      String?
+  popularity Int?
+  members    Int?
+  favorites  Int?
+  status     String?
+  source     String?
+  trailer    String?
+  CreatedAt  DateTime        @default(now())
+  UpdateAt   DateTime        @updatedAt
+}
+
+model Genre {
+  id        Int          @id @default(autoincrement())
+  name      String       @unique
+  animes    Animegenre[]
+  CreatedAt DateTime     @default(now())
+  UpdateAt  DateTime     @updatedAt
+}
+
+model Animegenre {
+  anime   Anime2 @relation("Anime to Genre",fields: [animeId], references: [id])
+  animeId Int    @map("AnimeId")
+
+  genre   Genre @relation(fields: [genreId], references: [id])
+  genreId Int   @map("GenreId")
+
+  @@id([animeId, genreId])
+}
+model Karakter {
+  id        String             @id @default(uuid())
+  imageUrl  String?
+  name      String?
+  role      String?
+  cover     String?
+  anime     Anime2 @relation("Anime to Karakter",fields: [animeId], references: [id])
+  animeId   Int
+  CreatedAt DateTime        @default(now())
+  UpdateAt  DateTime        @updatedAt
+}
+
+
+
+model User {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  name      String?
+  password  String?
+  role      String   @default("USER")
+  image     String   @default("https://i.pinimg.com/736x/09/7d/3c/097d3cf1d036e549d1caa10ad9268dfe.jpg")
+  createdAt DateTime @default(now())
+  updateAt  DateTime @updatedAt
 }
