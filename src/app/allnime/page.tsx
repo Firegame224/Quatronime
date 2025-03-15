@@ -22,23 +22,25 @@ export default function AnimePage() {
   }, [page]);
 
   return (
-    <div className="p-2md:p-8 text-white">
-      <h1 className="text-2xl font-bold">List Anime</h1>
-        <Kartu  Api={animes} />
+    <div className=" text-white">
+      <div className="p-2 md:p-8 w-full h-full">
+        <h1 className="text-2xl font-bold">List Anime</h1>
+        <Kartu Api={animes} />
+      </div>
       {/* Pagination */}
       <div className="flex justify-center mt-6 gap-4">
-        <Button 
-          onClick={() => setPage(page - 1)} 
+        <Button
+          onClick={() => setPage(page - 1)}
           disabled={page === 1}
           className="bg-red-500"
         >
           Prev
         </Button>
-        
+
         <span className="text-lg">Page {page}</span>
 
-        <Button 
-          onClick={() => setPage(page + 1)} 
+        <Button
+          onClick={() => setPage(page + 1)}
           disabled={page * limit >= total}
           className="bg-red-500"
         >

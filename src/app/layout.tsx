@@ -9,6 +9,7 @@ import { ToastProvider } from "../../provider/toast-provider";
 export const metadata: Metadata = {
   title: "Quatronime",
   description: "Dibuat Oleh Kelompok 8",
+  icons:"/public/img/logo.png"
 };
 
 export default async function RootLayout({
