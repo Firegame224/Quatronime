@@ -74,14 +74,14 @@ export const authOptions: AuthOptions = {
   pages: {
     signIn: "/auth/signIn",
     signOut: "/",
+    error: "/auth/error",
   },
   secret: process.env.NEXTAUTH_SECRET,
   adapter: PrismaAdapter(prisma),
   session: { strategy: "jwt" },
   callbacks: {
     async signIn({ user, account }) {
-
-      const email = user.email?.trim();
+      const email = user.email;
 
       if (!email) {
         throw new Error("Email is required");
