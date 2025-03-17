@@ -33,10 +33,10 @@ export default function Login() {
   const [isChecked, setIsChecked] = useState<boolean>(false);
 
   const OauthGoogle = async () => {
-    await signIn("google",{callbackUrl:"/users/dashboard"})
+    await signIn("google",{callbackUrl:"/"})
   };
   const OauthGithub = async () => {
-    await signIn("github",{callbackUrl:"/users/dashboard"})
+    await signIn("github",{callbackUrl:"/"})
   };
   const HandleEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;

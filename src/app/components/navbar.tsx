@@ -2,9 +2,10 @@
 
 import React from "react";
 import Image from "next/image";
-import SessionNav from "./Buttonsign";
+import SessionNav from "./button/Buttonsign";
 import { usePathname } from "next/navigation";
 import NavbarSmall from "./navbar-sm";
+import SearchNimeComponent from "./search-component";
 
 
 export default function Navbar() {
@@ -21,6 +22,9 @@ export default function Navbar() {
               <span className="self-center text-2xl font-semibold whitespace-nowrap text-white">
                 Quatronime
               </span>
+            </div>
+            <div>
+              <SearchNimeComponent/>
             </div>
             <div className="flex md:hidden">
             <NavbarSmall/>

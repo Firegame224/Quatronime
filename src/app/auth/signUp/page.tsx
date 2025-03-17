@@ -24,11 +24,13 @@ export default function Register() {
     .string()
     .min(8, "Password Minimal 8 Karakter")
     .max(20, "Password Maksimal 20 Karakter");
+
   const [email, setEmail] = useState<string>("");
   const [emailError, setEmailError] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [passwordError, setPasswordError] = useState<string>("");
   const [isChecked, setIsChecked] = useState<boolean>(false);
+
 
   const HandleEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -104,7 +106,7 @@ export default function Register() {
             <Button
               className="w-1/2 bg-transparent border text-black hover:bg-gray-200 rounded"
               onClick={() => {
-                signIn("github", { callbackUrl: "/" });
+                signIn("github");
               }}
               type="button"
             >
@@ -114,7 +116,7 @@ export default function Register() {
             <Button
               className="w-1/2 bg-transparent border text-black hover:bg-gray-200 rounded"
               onClick={() => {
-                signIn("google", { callbackUrl: "/" });
+                signIn("google");
               }}
               type="button"
             >

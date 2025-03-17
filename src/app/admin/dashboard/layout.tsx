@@ -18,7 +18,7 @@ export default async function Dashboard({
   }
 
   return (
-    <div className="admin">
+    <div className="admin bg-white h-screen">
       <NavbarAdmin/>
       {children}
     </div>

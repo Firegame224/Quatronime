@@ -19,7 +19,7 @@ const KarakterPage = async ({params}:{params:{animeId:string}}) => {
   }))
   return (
     <div className="flex-col ">
-      <div className="flex-1 space-y-4 p-8 pt-6">
+      <div className="flex-1 space-y-4 p-8 pt-6 h-screen">
         <KarakterClient data = {FormattedChara} />
       </div>
     </div>

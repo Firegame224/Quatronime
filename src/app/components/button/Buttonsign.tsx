@@ -1,9 +1,9 @@
 "use client";
 
 import { useSession } from "next-auth/react";
-import LogOutbutton from "./button/logout";
+import LogOutbutton from "./logout";
 import { Button } from "@/components/ui/button";
-import ButtonSign from "./button/sign";
+import ButtonSign from "./sign";
 
 export default function SessionNav() {
   const { data: session, status } = useSession();

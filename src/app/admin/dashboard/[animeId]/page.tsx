@@ -17,8 +17,7 @@ export default async function page({ params }: DashboardAdminParam) {
   });
 
   return (
-    <div className="w-full flex  justify-start p-8 h-full">
-      <div>
+    <div className="w-full flex flex-col justify-start p-8">
         <h1 className="text-2xl">{anime?.title}</h1>
         <Image
           src={
@@ -29,7 +28,6 @@ export default async function page({ params }: DashboardAdminParam) {
           width={400}
           height={400}
         />
-      </div>
     </div>
   );
 }

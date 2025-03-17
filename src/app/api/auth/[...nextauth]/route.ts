@@ -4,9 +4,7 @@ import GoogleProvider from "next-auth/providers/google";
 import GithubProvider from "next-auth/providers/github";
 import prisma from "@/libs/prisma";
 import bcrypt from "bcryptjs";
-import { PrismaAdapter } from "@next-auth/prisma-adapter";
 
-// Extend NextAuth types
 declare module "next-auth" {
   interface User {
     id: string;
@@ -23,17 +21,16 @@ declare module "next-auth" {
   }
 }
 
-// Validate environment variables
-
 export const authOptions: AuthOptions = {
+  debug: true,
   providers: [
     GithubProvider({
-      clientId: process.env.GITHUB_ID!,
-      clientSecret: process.env.GITHUB_SECRET!,
+      clientId: process.env.GITHUB_CLIENT_ID || "",
+      clientSecret: process.env.GITHUB_CLIENT_SECRET || "",
     }),
     GoogleProvider({
-      clientId: process.env.GOOGLE_ID!,
-      clientSecret: process.env.GOOGLE_SECRET!,
+      clientId: process.env.GOOGLE_CLIENT_ID || "",
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET || "",
     }),
     CredentialsProvider({
       name: "Custom Auth",
@@ -43,7 +40,7 @@ export const authOptions: AuthOptions = {
       },
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) {
-          return null;
+          throw new Error("Email dan password wajib diisi.");
         }
 
         // Cari user di database
@@ -52,21 +49,24 @@ export const authOptions: AuthOptions = {
         });
 
         if (!user || !user.password) {
-          return null;
+          throw new Error("User tidak ditemukan atau password salah.");
         }
 
         // Verifikasi password
-        const isPasswordValid = await bcrypt.compare(credentials.password, user.password);
+        const isPasswordValid = await bcrypt.compare(
+          credentials.password,
+          user.password
+        );
         if (!isPasswordValid) {
-          return null;
+          throw new Error("Password salah.");
         }
 
         return {
-          id: user.id.toString(), // User.id dijadikan string
-          email: user.email, // email dari database
-          name: user.name, // name dari database
-          image: user.image || "", // image dari database
-          role: user.role, // role dari database
+          id: user.id.toString(),
+          email: user.email,
+          name: user.name,
+          image: user.image || "",
+          role: user.role,
         };
       },
     }),
@@ -74,45 +74,46 @@ export const authOptions: AuthOptions = {
   pages: {
     signIn: "/auth/signIn",
     signOut: "/",
-    error: "/auth/error",
   },
   secret: process.env.NEXTAUTH_SECRET,
-  adapter: PrismaAdapter(prisma),
   session: { strategy: "jwt" },
   callbacks: {
     async signIn({ user, account }) {
-      const email = user.email;
 
-      if (!email) {
-        throw new Error("Email is required");
-      }
+      // Handle Google/Github login
       if (account?.provider === "google" || account?.provider === "github") {
-        
-        const existingUser = await prisma.user.findUnique({
-          where: { email},
+        const email = user.email;
+        if (!email) return false;
+
+        // Cek apakah user sudah ada di database
+        let existingUser = await prisma.user.findUnique({
+          where: { email },
         });
 
+        // Jika belum ada, buat user baru
         if (!existingUser) {
-          await prisma.user.create({
+          existingUser = await prisma.user.create({
             data: {
               email,
-              name: user.name,
+              name: user.name || "Anonymous",
               image: user.image || "",
               role: "USER",
-              password : null
+              password: null, // Karena login via OAuth
             },
           });
         }
+
+        user.id = existingUser.id;
+        user.role = existingUser.role;
+        user.image = existingUser.image;
       }
       return true;
     },
-    async jwt({ user, token }) {
+    async jwt({ token, user }) {
       if (user) {
         token.id = user.id;
-        token.email = user.email;
-        token.name = user.name;
-        token.picture = user.image;
         token.role = user.role;
+        token.image = user.image;
       }
       return token;
     },
@@ -121,7 +122,7 @@ export const authOptions: AuthOptions = {
         id: token.id as string,
         email: token.email as string,
         name: token.name as string,
-        image: (token.picture as string) || "",
+        image: token.image as string,
         role: token.role as string,
       };
       return session;
@@ -130,5 +131,4 @@ export const authOptions: AuthOptions = {
 };
 
 const Handler = NextAuth(authOptions);
-
 export { Handler as GET, Handler as POST };

@@ -34,14 +34,14 @@ model Anime {
 
 model Anime2 {
   id         Int             @id @default(autoincrement())
-  title      String
+  title      String          @unique
   imageUrl   String?
   synopsis   String?
   ranking    Int?
   score      Float?
   type       String?
   episodes   Int?
-  genres     Animegenre[] @relation("Anime to Genre")
+  genres     String[]
   karakter   Karakter[]@relation("Anime to Karakter")
   aired      String?
   popularity Int?
@@ -54,23 +54,6 @@ model Anime2 {
   UpdateAt   DateTime        @updatedAt
 }
 
-model Genre {
-  id        Int          @id @default(autoincrement())
-  name      String       @unique
-  animes    Animegenre[]
-  CreatedAt DateTime     @default(now())
-  UpdateAt  DateTime     @updatedAt
-}
-
-model Animegenre {
-  anime   Anime2 @relation("Anime to Genre",fields: [animeId], references: [id])
-  animeId Int    @map("AnimeId")
-
-  genre   Genre @relation(fields: [genreId], references: [id])
-  genreId Int   @map("GenreId")
-
-  @@id([animeId, genreId])
-}
 model Karakter {
   id        String             @id @default(uuid())
   imageUrl  String?
@@ -86,7 +69,7 @@ model Karakter {
 
 
 model User {
-  id        Int      @id @default(autoincrement())
+  id        String      @id @default(uuid())
   email     String   @unique
   name      String?
   password  String?

@@ -66,7 +66,7 @@ export default function NavbarSmall() {
                   className="w-full p-2 rounded-md hover:bg-gray-100 flex items-center gap-4 justify-center text-xs"
                 >
                   <User />
-                  {session.data?.user.email}
+                  {session.data?.user.name}
                 </Link>
               </CommandItem>
             </CommandGroup>

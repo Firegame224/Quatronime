@@ -27,7 +27,7 @@ const InformationsPage : React.FC<InformationsPageProps> = async ({params}) =>{
         redirect("/admin/dashboard");
     }
     return (
-        <div className="flex-col w-full h-full pb-6">
+        <div className="flex-col w-full h-full pb-6 bg-white">
             <div className="flex space-y-4 px-14 pt-6 ">
                 <InformationForm data={anime}/>
             </div>
