@@ -7,6 +7,7 @@ import React, { useState } from "react";
 import {z} from "zod"
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
+import { useSession } from "next-auth/react";
 
 
 
@@ -15,6 +16,7 @@ export default function Login() {
     const emailSchme = z.string().min(1, "Harap isi email").email("Email tidak valid")
     const [errorEmail, setErrorEmail] = useState<string>("")
     const router = useRouter();
+    const {data : session} = useSession();
     const handleEmail = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
         setEmail(value);
@@ -54,7 +56,9 @@ export default function Login() {
             console.error(error);
         }
     }
-
+    if (session) {
+        router.push("/");
+    }
   return (
     <div className=" p-9 items-center flex justify-center">
       <form

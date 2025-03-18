@@ -7,7 +7,7 @@ import { Label } from "@/components/ui/label";
 import React from "react";
 import { FaGithub } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import { z } from "zod";
 import Link from "next/link";
 import toast from "react-hot-toast";
@@ -30,6 +30,7 @@ export default function Register() {
   const [password, setPassword] = useState<string>("");
   const [passwordError, setPasswordError] = useState<string>("");
   const [isChecked, setIsChecked] = useState<boolean>(false);
+  const {data : session} = useSession();
 
 
   const HandleEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -87,7 +88,9 @@ export default function Register() {
       return;
     }
   };
-
+  if (session) {
+    router.push("/");
+  }
   return (
     <div className="p-4 sm:p-9 items-center flex justify-center">
       <form

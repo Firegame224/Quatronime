@@ -8,6 +8,7 @@ import { z } from "zod";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Checkbox } from "@/components/ui/checkbox";
 import toast from "react-hot-toast";
+import { useSession } from "next-auth/react";
 
 export default function PasswordUpdate() {
   const router = useRouter();
@@ -20,6 +21,7 @@ export default function PasswordUpdate() {
     .max(20, "Password maksimal 20 karakter");
   const [errorPassword, setErrorPassword] = useState<string>("");
   const [isChecked, setIsChecked] = useState<boolean>(false);
+  const { data: session } = useSession();
   const handlePassword = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setPassword(value);
@@ -52,9 +54,12 @@ export default function PasswordUpdate() {
       console.error(error);
       alert("Error mungkin telah terjadi");
     }
-  };
+  }
+  if (session) {
+    router.push("/");
+  }
   return (
-    <div className="p-4 sm:p-9flex justify-center items-center">
+    <div className="p-4 sm:p-9 flex justify-center items-center">
       <form
         className="flex flex-col gap-6 w-[400px] bg-white rounded-md p-8 shadow-lg"
         onSubmit={handleSubmit}
