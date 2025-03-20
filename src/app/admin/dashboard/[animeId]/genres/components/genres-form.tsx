@@ -99,7 +99,7 @@ const GenresForm: React.FC<SettingsFormProps> = ({ data }) => {
         loading={isLoading}
       />
       <div className="p-5 flex items-center justify-between w-full">
-        <HeadingNav title="Settings" description="Manage Anime settings" />
+        <HeadingNav title="Genres" description="Pilih genres anime" />
         <Button
           variant={"destructive"}
           size={"icon"}
