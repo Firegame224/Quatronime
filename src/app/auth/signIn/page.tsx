@@ -14,7 +14,6 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { Checkbox } from "@/components/ui/checkbox";
-import { useSession } from "next-auth/react";
 
 
 export default function Login() {
@@ -32,8 +31,6 @@ export default function Login() {
   const [password, setPassword] = useState<string>("");
   const [passwordError, setPasswordError] = useState<string>("");
   const [isChecked, setIsChecked] = useState<boolean>(false);
-
-  const { data: session } = useSession();
   const OauthGoogle = async () => {
     await signIn("google",{callbackUrl:"/"})
   };
@@ -82,9 +79,6 @@ export default function Login() {
       return;
     }
   };
-  if (session) {
-    Router.push("/")
-  }
   return (
     <div className="p-4 sm:p-9 items-center flex justify-center">
       <form

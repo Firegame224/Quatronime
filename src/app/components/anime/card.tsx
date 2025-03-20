@@ -1,4 +1,7 @@
+"use client";
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { Card, CardContent } from "@/components/ui/card";
 import { Bookmark } from "lucide-react";
 import Image from "next/image";
@@ -8,12 +11,12 @@ import React from "react";
 interface KartuProps {
   imageUrl: string | null;
   title: string;
-  status: string | null
+  status: string | null;
   episodes: number | null;
   score: number | null;
   id: number;
-  source : string | null;
-  aired : string | null;
+  source: string | null;
+  aired: string | null;
 }
 
 export default function Kartu({ Api }: { Api: KartuProps[] }) {
@@ -30,7 +33,10 @@ export default function Kartu({ Api }: { Api: KartuProps[] }) {
                       {anime.status}
                     </p>
                     <Image
-                      src={anime.imageUrl || "https://img.freepik.com/premium-vector/default-image-icon-vector-missing-picture-page-website-design-mobile-app-no-photo-available_87543-11093.jpg"}
+                      src={
+                        anime.imageUrl ||
+                        "https://img.freepik.com/premium-vector/default-image-icon-vector-missing-picture-page-website-design-mobile-app-no-photo-available_87543-11093.jpg"
+                      }
                       alt={anime.title}
                       width={200}
                       height={200}
@@ -43,12 +49,12 @@ export default function Kartu({ Api }: { Api: KartuProps[] }) {
                       {anime.score}
                     </p>
                   </div>
-                  <div className="w-full h-12 sm:h-[67px] flex flex-col text-white font-bold text-[10px] relative md:text-[15px] justify-between">
-                    <p className="flex w-full items-center gap-2">
-                      <Bookmark className="w-4 h-4" />
-                      {anime.favorites}
+                  <div className="w-full h-12 sm:h-[67px] flex flex-col text-white font-semibold text-[10px] relative md:text-[15px] justify-center">
+                    <p className="flex w-full items-center gap-2 font-thin">
+                      <Bookmark className="w-4 h-4" onClick={() => {console.log(anime.id)}}/>
+                      {anime.favorites + " Pengguna"}
                     </p>
-                    <p className="">{anime.title}</p>
+                    <p>{anime.title}</p>
                   </div>
                 </CardContent>
               </Card>

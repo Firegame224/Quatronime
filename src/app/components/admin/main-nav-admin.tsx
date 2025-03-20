@@ -32,6 +32,10 @@ export default function MainNavAdmin({
       href: `/admin/dashboard/${params.animeId}/karakter`,
       label: "karakter",
       active: pathname === `/admin/dashboard/${params.animeId}/karakter`,
+    }, {
+      href: `/admin/dashboard/${params.animeId}/genres`,
+      label: "Genres",
+      active: pathname === `/admin/dashboard/${params.animeId}/genres`,
     }
   ] : [];
   return (

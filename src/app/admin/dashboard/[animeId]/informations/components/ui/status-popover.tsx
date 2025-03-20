@@ -7,7 +7,11 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import { CheckIcon, ChevronsUpDownIcon, Tv2Icon } from "lucide-react";
 import React, { useState } from "react";
 
@@ -43,7 +47,6 @@ const StatusPopover: React.FC<PopoverStatusProps> = ({
                 return (
                   <CommandItem
                     className="w-full"
-                    
                     key={type}
                     onSelect={() => {
                       onSelect(type);
@@ -52,7 +55,7 @@ const StatusPopover: React.FC<PopoverStatusProps> = ({
                   >
                     {type}
                     {sellectedStatus === type && (
-                         <CheckIcon className="w-4 h-4 ml-auto"/>
+                      <CheckIcon className="w-4 h-4 ml-auto" />
                     )}
                   </CommandItem>
                 );

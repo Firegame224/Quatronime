@@ -5,6 +5,7 @@ import { Calendar } from "lucide-react";
 import Image from "next/image";
 import YoutubePlayer from "@/app/components/anime/youtube-player";
 import NavbarAnime from "@/app/components/anime/navbar-anime";
+import { Badge } from "@/components/ui/badge";
 
 export default async function DeskAnimePage({
   params,
@@ -55,10 +56,10 @@ export default async function DeskAnimePage({
   ];
   return (
     <div className="w-screen min-h-screen text-white bg-black">
-      <NavbarAnime/>
+      <NavbarAnime />
       <div className="md:flex gap-5 w-full">
-        <div className="flex flex-col items-center h-screen">
-          <div className=" h-full w-full md:w-96 relative">
+        <div className="flex flex-col items-center h-full md:h-screen">
+          <section className=" h-full w-full md:w-96 relative">
             <Image
               src={
                 nime.imageUrl ||
@@ -73,7 +74,7 @@ export default async function DeskAnimePage({
               <Calendar className="w-5 h-5 ml-2" />
               {nime.aired}
             </Label>
-          </div>
+          </section>
           <div className="mt-3 flex justify-center gap-3 w-full p-2">
             {Box.map((bok, index) => {
               return (
@@ -88,9 +89,13 @@ export default async function DeskAnimePage({
             })}
           </div>
           <div className="flex flex-row w-full items-center justify-center gap-2 my-4">
-            <p className="p-2 bg-gray-700 rounded-sm">Adventure</p>
-            <p className="p-2 bg-gray-700 rounded-sm">Yatim</p>
-            <p className="p-2 bg-gray-700 rounded-sm">Fantasy</p>
+            {nime.genres.map((genre, index) => {
+              return (
+                <Badge className="p-3 bg-gray-700 " key={index}>
+                  {genre}
+                </Badge>
+              );
+            })}
           </div>
           <h1 className="text-2xl font-bold md:hidden">{nime.title}</h1>
         </div>
@@ -116,11 +121,8 @@ export default async function DeskAnimePage({
       {/** Komentar Section **/}
       <section className="p-5 mt-12 sm:mt-12 relative">
         <h2 className="text-2xl font-bold my-4 text-[#fc0b03]">Comments</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          
-        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
       </section>
-
     </div>
   );
 }

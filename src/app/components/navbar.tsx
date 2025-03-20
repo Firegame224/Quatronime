@@ -23,12 +23,12 @@ export default function Navbar() {
                 Quatronime
               </span>
             </div>
-            <div>
-              <SearchNimeComponent/>
-            </div>
             <div className="flex md:hidden">
             <NavbarSmall/>
           </div>
+            <div className="w-full md:w-auto">
+              <SearchNimeComponent/>
+            </div>
             <div className="hidden items-center self-end justify-center md:flex" >
               <SessionNav />
             </div>
