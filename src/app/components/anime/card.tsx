@@ -1,4 +1,3 @@
-"use client";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
@@ -19,7 +18,15 @@ interface KartuProps {
   aired: string | null;
 }
 
+
 export default function Kartu({ Api }: { Api: KartuProps[] }) {
+  if (Api.length === 0) {
+    return (
+      <div className="flex justify-center items-center">
+        <p className="text-white font-semibold text-2xl">Tidak Ada Anime</p>
+      </div>
+    );
+  }
   return (
     <div className="grid grid-cols-3 justify-center items-center sm:grid-cols-4 md:gap-4 md:grid-cols-5 lg:grid-cols-6 ">
       {Api.map((anime: any) => {
@@ -51,7 +58,7 @@ export default function Kartu({ Api }: { Api: KartuProps[] }) {
                   </div>
                   <div className="w-full h-12 sm:h-[67px] flex flex-col text-white font-semibold text-[10px] relative md:text-[15px] justify-center">
                     <p className="flex w-full items-center gap-2 font-thin">
-                      <Bookmark className="w-4 h-4" onClick={() => {console.log(anime.id)}}/>
+                      <Bookmark className="w-4 h-4" />
                       {anime.favorites + " Pengguna"}
                     </p>
                     <p>{anime.title}</p>

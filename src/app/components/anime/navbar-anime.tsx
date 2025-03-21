@@ -10,7 +10,7 @@ export default function NavbarAnime() {
     <div className='w-full fixed z-10 '>
       <Button
       className='border-none bg-black shadow-none text-xl text-[#fc0b03] items-center flex rounded-sm justify-center'
-      onClick={()=> router.push("/")}
+      onClick={()=> router.back()}
       >
         <ArrowLeft className='w-7 h-7'/>
         Back

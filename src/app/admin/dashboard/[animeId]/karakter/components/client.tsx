@@ -23,7 +23,6 @@ export const KarakterClient : React.FC<CharaClientProps> = ({data}) => {
     return (
     <>
       <div className="flex items-center justify-between">
-       
         <HeadingNav title={`Karakter (${data.length})`} description="Karakter Anime" />
         <Button className="" onClick={() => {router.push(`/admin/dashboard/${params.animeId}/karakter/new`)}}>
           <Plus className="mr-2 h-4 w-4" />

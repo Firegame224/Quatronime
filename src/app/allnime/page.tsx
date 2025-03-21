@@ -3,6 +3,8 @@
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import Kartu from "../components/anime/card";
+import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
 
 export default function AnimePage() {
   const [animes, setAnimes] = useState([]);
@@ -22,9 +24,15 @@ export default function AnimePage() {
   }, [page]);
 
   return (
-    <div className=" text-white">
-      <div className="p-2 md:p-8 w-full h-full">
-        <h1 className="text-2xl font-bold">List Anime</h1>
+    <div className="text-white">
+      <div className="p-2 md:p-8 w-full min-h-screen">
+        <div className="w-full flex justify-between">
+          <h1 className="text-2xl font-bold">List Anime</h1>
+          <Link href="/" className="hover:underline text-[#9e1313] dark:hover:text-white transition duration-500 ease-in-out flex items-center">
+            <ArrowLeft className="w-6 h-6"/>
+            Back
+          </Link>
+        </div>
         <Kartu Api={animes} />
       </div>
       {/* Pagination */}

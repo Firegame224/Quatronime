@@ -63,6 +63,7 @@ export async function GET(request : NextRequest, {params}: {params : {animeId : 
       where : {
         title : {
           contains : title,
+          mode : "insensitive"
         }
       }
     })

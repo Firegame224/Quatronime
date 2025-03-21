@@ -1,47 +1,34 @@
-'use client'
 import Kartu from '@/app/components/anime/card';
 import Headernime from '@/app/components/anime/headernime'
-import { useParams } from 'next/navigation';
-import React,{ useEffect, useRef, useState } from 'react'
 
-export default function SearchPage() {
-  const params = useParams();
-  const animeTitle = params.anime as string
-  const EncodeTitle = encodeURI(animeTitle)
-  const prevTitle = useRef("")
-  const [anime, setAnime] = useState([]);
-  const url = `/api/nimes/${EncodeTitle}/animes`
-  useEffect( ()=> {
-    const fetchData = async () => {
-      if (prevTitle.current === animeTitle) return // Mencegah fetch data duplikat
-      try {
-        const response = await fetch(url);
-        const data = await response.json();
-        setAnime(data.data);
-      } catch (error) {
-        console.log(error)
-        return (
-          <div className='flex items-center justify-center w-full h-screen'>
-            <h1 className='text-2xl text-[#9e1313] text-center'>Error di Catch fetch data</h1>
-          </div>
-        )
-      }
-    }
-
-    fetchData();
-    console.log(anime)
-  },[animeTitle,url,anime])
-  if (anime.length === 0) {
+interface AnimeSearchPops {
+  params : {anime : string}
+}
+export default async function SearchPage({params} : AnimeSearchPops) {
+  const id  = params.anime;
+  const decodedUrl = decodeURIComponent(id);
+  let Anime = [];
+  try {
+    const response = await fetch(process.env.NEXT_PUBLIC_API_URL + `/api/nimes/${decodedUrl}/animes`, {
+      cache: "no-store",
+    })
+    const anime = await response.json();
+    Anime = anime.data
+  } catch (error) {
+    console.log(error)
+  }  
+ if (Anime.length === 0) {
     return (
-      <div className='flex items-center justify-center w-full h-screen'>
-        <h1 className='text-2xl text-[#9e1313] text-center'>Anime Tidak Ditemukan</h1>
-      </div>
+      <>
+        <Headernime Teks={`Hasil pencarian ${decodedUrl}`} href={"Kembali"} link={`/`} />
+        <p className='text-center text-white font-semibold text-2xl'>Tidak ada hasil pencarian</p>
+      </>
     )
   }
   return (
     <>
-      <Headernime Teks={`Hasil pencarian${animeTitle}`} href={"Kembali"} link={`/`} />
-      <Kartu Api={anime} />
+      <Headernime Teks={`Hasil pencarian ${decodedUrl}`} href={"Kembali"} link={`/`} />
+      <Kartu Api={Anime} />
     </>
   )
 }

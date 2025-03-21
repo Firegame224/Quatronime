@@ -8,7 +8,7 @@ export async function POST (request: NextRequest) {
         return NextResponse.json({message:"Email Harap Di Isi"},{status:400});
 
     }
-    const checkMail = await prisma.user.findUnique({
+    const checkMail = await prisma.user.findFirst({
         where : {
             email:email
         }
