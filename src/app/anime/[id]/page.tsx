@@ -6,25 +6,43 @@ import Image from "next/image";
 import YoutubePlayer from "@/app/components/anime/youtube-player";
 import NavbarAnime from "@/app/components/anime/navbar-anime";
 import { Badge } from "@/components/ui/badge";
+import KomentarAnime from "@/app/components/anime/komentar-anime";
+import { AuthSession } from "@/libs/session";
+import AnimeButtonFavorites from "@/app/components/anime/anime-button-favorites";
 
 export default async function DeskAnimePage({
   params,
 }: {
   params: { id: string };
 }) {
-  const id = Number(params.id);
+  const animeId = Number(params.id);
+  const session = await AuthSession();
 
   // Fetch data anime dari database
   const nime = await prisma.anime2.findUnique({
     where: {
-      id: id,
+      id: animeId,
     },
   });
   const chara = await prisma.karakter.findMany({
     where: {
-      animeId: id,
+      animeId,
     },
   });
+  const komentar = await prisma.komentar.findMany({
+    where: {
+      animeId,
+    },
+  });
+
+  const Collection = await prisma.collection.findMany({
+    where: {
+      userId: session?.id,
+      animeId
+    },
+  })
+  
+  console.log("Ini Collection",Collection);
   if (!chara) {
     return;
   }
@@ -54,8 +72,10 @@ export default async function DeskAnimePage({
       p2: nime.type,
     },
   ];
+  console.log(session?.id + " ini id user");
+  console.log("Ini Image " + nime.imageUrl);
   return (
-    <div className="w-screen min-h-screen text-white bg-black">
+    <div className="max-w-screen min-h-screen text-white ">
       <NavbarAnime />
       <div className="md:flex gap-5 w-full">
         <div className="flex flex-col items-center h-full md:h-screen">
@@ -74,6 +94,7 @@ export default async function DeskAnimePage({
               <Calendar className="w-5 h-5 ml-2" />
               {nime.aired}
             </Label>
+            <AnimeButtonFavorites params={animeId} data={Collection}/>
           </section>
           <div className="mt-3 flex justify-center gap-3 w-full p-2">
             {Box.map((bok, index) => {
@@ -92,7 +113,7 @@ export default async function DeskAnimePage({
             {nime.genres.map((genre, index) => {
               return (
                 <Badge className="p-3 bg-gray-700 " key={index}>
-                  {genre}
+                  #{genre}
                 </Badge>
               );
             })}
@@ -110,7 +131,7 @@ export default async function DeskAnimePage({
         </section>
       </div>
       {/** Karakter Section **/}
-      <section className="p-5 mt-12 sm:mt-12 relative">
+      <section className="p-5 mt-12 relative">
         <h2 className="text-2xl font-bold my-4 text-[#fc0b03]">Characters</h2>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {chara.map((char) => (
@@ -119,9 +140,11 @@ export default async function DeskAnimePage({
         </div>
       </section>
       {/** Komentar Section **/}
-      <section className="p-5 mt-12 sm:mt-12 relative">
+      <section className="p-5 mt-12">
         <h2 className="text-2xl font-bold my-4 text-[#fc0b03]">Comments</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+        <div className="flex w-full">
+          <KomentarAnime params={animeId} data={komentar} />
+        </div>
       </section>
     </div>
   );

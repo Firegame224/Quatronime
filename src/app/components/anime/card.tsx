@@ -33,8 +33,8 @@ export default function Kartu({ Api }: { Api: KartuProps[] }) {
         return (
           <div key={anime.id}>
             <Link href={`/anime/${anime.id}`} className="flex justify-center">
-              <Card className="rounded-sm bg-transparent items-center justify-center flex border-none max-w-[200px] shadow-none">
-                <CardContent className="flex flex-col items-center justify-between w-full relative gap-2 p-2">
+              <Card className="group rounded-sm bg-transparent items-center justify-center flex border-none max-w-[200px] shadow-none hover:bg-gray-800/50">
+                <CardContent className="flex flex-col items-center justify-between w-full relative gap-2 p-2 ">
                   <div className="w-full h-full relative rounded-tl-md">
                     <p className="absolute top-0 text-white text-[10px] font-semibold md:text-[12px] bg-red-500 opacity-95 p-1 rounded-tl-md">
                       {anime.status}
@@ -47,7 +47,7 @@ export default function Kartu({ Api }: { Api: KartuProps[] }) {
                       alt={anime.title}
                       width={200}
                       height={200}
-                      className="object-cover h-44 w-auto sm:h-60 rounded-md"
+                      className="object-cover h-44 w-auto sm:h-60 rounded-md group-hover:scale-105 transition ease-in-out duration-300:"
                     />
                     <p className="text-[12px] font-semibold text-white absolute bottom-0 ml-2">
                       Eps {anime.episodes}

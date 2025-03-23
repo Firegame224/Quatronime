@@ -16,7 +16,7 @@ export default function YoutubePlayer({ videoUrl }: { videoUrl: string }) {
   const option = {
     width : "100%",
     height : "100%",
-    autoplay : 0
+    autoplay : 0,
   }
   if (!videoId) {
     return <p className="text-center text-red-500">Invalid YouTube URL</p>;

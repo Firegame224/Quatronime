@@ -13,14 +13,13 @@ export default async function AnimePage() {
     return (
       <div className="w-full min-h-screen">
       <Headernime Teks="Top Anime" href="Lihat Semua.." link="/allnime" />
-      <div className="flex flex-col justify-between items-center">
+      <div className="flex flex-col justify-between items-center w-full">
         <Kartu Api={TopAnime} />
       </div>
       <Headernime Teks="Rekomendasi" href="" link="" />
-      <div className="flex flex-col justify-between items-center">
+      <div className="flex flex-col justify-between items-center w-full">
         <Kartu Api={fullAnime} />
       </div>
-
       </div>
     );
   }

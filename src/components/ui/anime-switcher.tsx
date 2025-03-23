@@ -7,7 +7,7 @@ import { useNimeModals } from "../../../hooks/use-store-modal";
 import { useParams, useRouter } from "next/navigation";
 import { Button } from "./button";
 import { Check, ChevronsUpDown, PlusCircleIcon, TvIcon } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { cn } from "../../../lib/utils";
 import {
   Command,
   CommandGroup,

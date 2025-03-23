@@ -1,4 +1,3 @@
-
 "use client";
 
 import UploadImg from "@/app/components/admin/upload-img";
@@ -30,22 +29,37 @@ interface InformationsFormProps {
 }
 
 const formSchema = z.object({
-
   imageUrl: z.string().nullable().optional(),
   synopsis: z.string().nullable().optional(),
-  ranking: z.preprocess((val) => (val === "" ? undefined : Number(val)), z.number().optional()),
+  ranking: z.preprocess(
+    (val) => (val === "" ? undefined : Number(val)),
+    z.number().optional()
+  ),
   source: z.string().nullable().optional(),
-  score: z.preprocess((val) => (val === "" ? undefined : Number(val)), z.number().optional()),
+  score: z.preprocess(
+    (val) => (val === "" ? undefined : Number(val)),
+    z.number().optional()
+  ),
   type: z.string().nullable().optional(),
-  episodes: z.preprocess((val) => (val === "" ? undefined : Number(val)), z.number().optional()),
+  episodes: z.preprocess(
+    (val) => (val === "" ? undefined : Number(val)),
+    z.number().optional()
+  ),
   aired: z.string().nullable().optional(),
-  popularity: z.preprocess((val) => (val === "" ? undefined : Number(val)), z.number().optional()),
-  members: z.preprocess((val) => (val === "" ? undefined : Number(val)), z.number().optional()),
-  favorites: z.preprocess((val) => (val === "" ? undefined : Number(val)), z.number().optional()),
+  popularity: z.preprocess(
+    (val) => (val === "" ? undefined : Number(val)),
+    z.number().optional()
+  ),
+  members: z.preprocess(
+    (val) => (val === "" ? undefined : Number(val)),
+    z.number().optional()
+  ),
+  favorites: z.preprocess(
+    (val) => (val === "" ? undefined : Number(val)),
+    z.number().optional()
+  ),
   status: z.string().nullable().optional(),
   trailer: z.string().nullable().optional(),
-
-  
 });
 
 type InformationValues = z.infer<typeof formSchema>;
@@ -56,7 +70,7 @@ const InformationForm: React.FC<InformationsFormProps> = ({ data }) => {
     defaultValues: {
       imageUrl: data?.imageUrl ?? "",
       synopsis: data?.synopsis ?? "",
-      ranking: data?.ranking ?? 0,  
+      ranking: data?.ranking ?? 0,
       source: data?.source ?? "",
       score: data?.score ?? 0,
       type: data?.type ?? "",
@@ -69,36 +83,35 @@ const InformationForm: React.FC<InformationsFormProps> = ({ data }) => {
       trailer: data?.trailer ?? "",
     },
   });
-  
+
   const params = useParams();
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 
-  
-  const handleSubmit = async ( values : InformationValues) => {
+  const handleSubmit = async (values: InformationValues) => {
     try {
-        setIsLoading(true);
-        const response = await fetch(`/api/nimes/${params.animeId}/animes`,{
-            method : "PATCH",
-            headers : {
-                "content-type" : "application/json"
-            },
-            body : JSON.stringify(values)
-        })
+      setIsLoading(true);
+      const response = await fetch(`/api/nimes/${params.animeId}/animes`, {
+        method: "PATCH",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(values),
+      });
 
-        if (!response.ok) {
-            toast.error("Terjadi error di server !response.ok");
-        }
-        if (response.ok) {
-            toast.success("Informasi Anime berhasil diubah");
-            router.refresh();
-        }
+      if (!response.ok) {
+        toast.error("Terjadi error di server !response.ok");
+      }
+      if (response.ok) {
+        toast.success("Informasi Anime berhasil diubah");
+        router.refresh();
+      }
     } catch (error) {
-        toast.error("Telah Terjadi error di catch handle Submit" + error)
+      toast.error("Telah Terjadi error di catch handle Submit" + error);
     } finally {
-        setIsLoading(false);
+      setIsLoading(false);
     }
-  }
+  };
   return (
     <div className="flex-col justify-center h-full md:justify-end gap-2 items-center md:flex md:flex-row w-full">
       <div className="w-full md:w-1/2 items-center justify-center flex flex-col gap-3">
@@ -134,7 +147,6 @@ const InformationForm: React.FC<InformationsFormProps> = ({ data }) => {
                         {...field}
                         value={field.value ? field.value : ""}
                         className="min-w-[200px] md:w-full resize-none"
-          
                       />
                     </FormControl>
                   </FormItem>
@@ -154,7 +166,6 @@ const InformationForm: React.FC<InformationsFormProps> = ({ data }) => {
                         {...field}
                         value={field.value ? field.value : ""}
                         className="min-w-[200px] md:w-full"
-                        
                       />
                     </FormControl>
                   </FormItem>
@@ -174,7 +185,6 @@ const InformationForm: React.FC<InformationsFormProps> = ({ data }) => {
                         {...field}
                         value={field.value ? field.value : ""}
                         className="min-w-[200px] md:w-full"
-                        
                       />
                     </FormControl>
                   </FormItem>
@@ -194,7 +204,6 @@ const InformationForm: React.FC<InformationsFormProps> = ({ data }) => {
                         {...field}
                         value={field.value ? field.value : ""}
                         className="min-w-[200px] md:w-full"
-                        
                       />
                     </FormControl>
                   </FormItem>
@@ -214,7 +223,6 @@ const InformationForm: React.FC<InformationsFormProps> = ({ data }) => {
                         {...field}
                         value={field.value ? field.value : ""}
                         className="min-w-[200px] md:w-full"
-                        
                       />
                     </FormControl>
                   </FormItem>
@@ -229,12 +237,11 @@ const InformationForm: React.FC<InformationsFormProps> = ({ data }) => {
                     <FormLabel>Favorites</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="Masukan Favorites Anime"
+                        disabled
                         type="number"
                         {...field}
                         value={field.value ? field.value : ""}
                         className="min-w-[200px] md:w-full"
-                        
                       />
                     </FormControl>
                   </FormItem>
@@ -254,14 +261,13 @@ const InformationForm: React.FC<InformationsFormProps> = ({ data }) => {
                         {...field}
                         value={field.value ? field.value : ""}
                         className="min-w-[200px] md:w-full"
-                        
                       />
                     </FormControl>
                   </FormItem>
                 )}
               />
               {/* Source Input*/}
-                <FormField
+              <FormField
                 control={form.control}
                 name="source"
                 render={({ field }) => (
@@ -274,7 +280,6 @@ const InformationForm: React.FC<InformationsFormProps> = ({ data }) => {
                         {...field}
                         value={field.value ? field.value : ""}
                         className="min-w-[200px] md:w-full"
-                        
                       />
                     </FormControl>
                   </FormItem>
@@ -294,7 +299,6 @@ const InformationForm: React.FC<InformationsFormProps> = ({ data }) => {
                         {...field}
                         value={field.value ? field.value : ""}
                         className="min-w-[200px] md:w-full"
-                        
                       />
                     </FormControl>
                   </FormItem>
@@ -314,7 +318,6 @@ const InformationForm: React.FC<InformationsFormProps> = ({ data }) => {
                         {...field}
                         value={field.value ? field.value : ""}
                         className="min-w-[200px] md:w-full"
-                        
                       />
                     </FormControl>
                   </FormItem>
@@ -339,7 +342,6 @@ const InformationForm: React.FC<InformationsFormProps> = ({ data }) => {
                           ? `Type yg dipilih adalah ${field.value}`
                           : "Belum ada Type yg dipilih"}
                       </Label>
-                     
                     </FormItem>
                   )}
                 />
@@ -361,35 +363,32 @@ const InformationForm: React.FC<InformationsFormProps> = ({ data }) => {
                           ? `Status yg dipilih adalah ${field.value}`
                           : "Belum ada Status yg dipilih"}
                       </Label>
-                
                     </FormItem>
                   )}
                 />
                 <FormField
-                control={form.control}
-                name="imageUrl"
-                render={({ field }) => (
-                  <FormItem className="max-w-[200px] flex flex-col">
-                    <FormLabel>Cover Anime Image</FormLabel>
-                    <FormControl>
+                  control={form.control}
+                  name="imageUrl"
+                  render={({ field }) => (
+                    <FormItem className="max-w-[200px] flex flex-col">
+                      <FormLabel>Cover Anime Image</FormLabel>
+                      <FormControl>
                         <UploadImg
-                        disabled={isLoading}
-                        onChange={(url) => field.onChange(url) }
-                        onRemove={()=> field.onChange('')}
-                        value={field.value ? [field.value] : []}
+                          disabled={isLoading}
+                          onChange={(url) => field.onChange(url)}
+                          onRemove={() => field.onChange("")}
+                          value={field.value ? [field.value] : []}
                         />
-                    </FormControl>
-                    <Label className="text-xs md:text-[13px] text-center">Upload Image disini</Label>
-                  </FormItem>
-                )}
-              />
+                      </FormControl>
+                      <Label className="text-xs md:text-[13px] text-center">
+                        Upload Image disini
+                      </Label>
+                    </FormItem>
+                  )}
+                />
               </div>
             </div>
-            <Button 
-            type="submit"
-            disabled={isLoading}
-            className="w-full"
-            >
+            <Button type="submit" disabled={isLoading} className="w-full">
               {isLoading ? "Loading..." : "Simpan"}
             </Button>
           </form>

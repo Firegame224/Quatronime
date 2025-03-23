@@ -7,7 +7,7 @@ import React from 'react'
 export default function NavbarAnime() {
     const router = useRouter()
   return (
-    <div className='w-full fixed z-10 '>
+    <div className='w-full fixed z-10 flex justify-between items-center'>
       <Button
       className='border-none bg-black shadow-none text-xl text-[#fc0b03] items-center flex rounded-sm justify-center'
       onClick={()=> router.back()}

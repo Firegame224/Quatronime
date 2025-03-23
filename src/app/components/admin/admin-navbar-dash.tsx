@@ -6,6 +6,7 @@ import { TvIcon, User } from "lucide-react";
 import Link from "next/link";
 import { AdminLogoutButton } from "./logout-button";
 import prisma from "@/libs/prisma";
+import NavbarAdminSmall from "./admin-navbar-small";
 
 function NavItem({ href, icon, label } : { href: string; icon: React.ReactNode; label: string }) {
     return (
@@ -19,10 +20,11 @@ function NavItem({ href, icon, label } : { href: string; icon: React.ReactNode; 
     );
   }
 export default async function AdminNavbarDash() {
-  const session = await AuthSession();
+    const session = await AuthSession();
     const anime = await prisma.anime2.findMany();
   return (
-    <nav className="w-full p-5 bg-red-700 shadow-lg h-full rounded-r-lg">
+    <>
+    <nav className="w-full p-5 bg-red-700 shadow-lg h-full rounded-r-lg hidden md:block">
       {/* Profil Admin */}
       <div className="flex items-center gap-4 text-white">
         <Avatar className="w-14 h-14 border-2 border-white shadow-md hover:scale-105 transition-transform">
@@ -46,5 +48,19 @@ export default async function AdminNavbarDash() {
         <AdminLogoutButton/>
       </div>
     </nav>
+    <nav className="w-full p-5 bg-red-700 shadow-lg flex h-full rounded-r-lg justify-between md:hidden">
+      <div className="flex items-center gap-4 text-white">
+        <Avatar className="w-9 h-9 border-2 border-white shadow-md hover:scale-105 transition-transform">
+          <AvatarImage src={session?.image} alt="User Avatar" />
+          <AvatarFallback>{session?.name?.charAt(0) || "?"}</AvatarFallback>
+        </Avatar>
+        <div>
+          <p className="text-[9px] font-light text-gray-200">{session?.role || "Admin"}</p>
+          <h1 className="text-[13px] font-semibold">{session?.name || session?.email}</h1>
+        </div>
+      </div>
+      <NavbarAdminSmall data={anime}/>
+    </nav>
+    </>
   );
 }
