@@ -33,6 +33,7 @@ export default function AnimeKomentarDelete({ data, params }: KomentarProps) {
         toast.error("gagal menghapus komentar");
       }
       if (response.ok) {
+        setIsOpen(false);
         toast.success("Komentar berhasil di hapus");
         router.refresh();
       }
