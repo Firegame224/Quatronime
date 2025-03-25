@@ -37,7 +37,6 @@ export default function AnimeButtonFavorites({
         toast.error("Gagal menambahkan ke favorit");
       }
       if (response.ok) {
-        toast.success("Berhasil menambahkan ke favorit");
         router.refresh();
       }
     } catch (error) {
@@ -60,7 +59,6 @@ export default function AnimeButtonFavorites({
         toast.error("Gagal menghapus favorit");
       }
       if (response.ok) {
-        toast.success("Berhasil menghapus favorit");
         router.refresh();
       }
     } catch (error) {
@@ -98,7 +96,6 @@ export default function AnimeButtonFavorites({
               className="group text-[#fc0b03] bg-white border-2 border-[#fc0b03] justify-center shadow-red-500/50 flex transition absolute bottom-1 right-4 items-center p-0 rounded-full"
               size={"icon"}
               onClick={handleDeleteFavorite}
-              disabled={isLoading}
             >
               <Bookmark fill="#fc0b03" className="w-6 h-6 text-[#fc0b03]" />
             </Button>
@@ -107,7 +104,6 @@ export default function AnimeButtonFavorites({
               className="group text-white border-2 hover:border-[#fc0b03] justify-center hover:shadow-red-500/50 flex transition absolute bottom-1 right-4 ease-in duration-500 items-center p-0 rounded-full"
               size={"icon"}
               onClick={handleAddFavorite}
-              disabled={isLoading}
             >
               <Bookmark
                 fill="white"

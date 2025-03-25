@@ -25,7 +25,7 @@ export default function KomentarAnimeCard({ params, data }: any) {
             <section className="flex flex-col sm:w-full self-startrounded-md p-2 w-full">
               <div className="w-full flex flex-wrap items-center gap-1">
                 <h1 className="text-[12px] md:text-[15px]">
-                  @{item.name || item.email.split("@")[0]} ●
+                  @{item.name ? item.name : item.email.split("@")[0]} ●
                 </h1>
                 <h1 className="text-[11px] md:text-[12px] text-gray-500">
                   {item.updateAt

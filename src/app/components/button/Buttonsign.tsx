@@ -1,27 +1,28 @@
-"use client";
-
 import { useSession } from "next-auth/react";
 import LogOutbutton from "./logout";
-import { Button } from "@/components/ui/button";
 import ButtonSign from "./sign";
+import Link from "next/link";
 
 export default function SessionNav() {
   const { data: session, status } = useSession();
   if (status === "loading")
     return (
-      <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-revers ">
-        <Button className="text-white bg-red-700 border-white rounded p-2 flex gap-2 items-center justify-center hover:bg-white hover:text-red-700 transition ease-in duration-500">
-          <p className="text-sm">Loading... </p>
+      <div className="flex md:order-2 space-x-3 md:space-x-0 animate-pulse">
+      <Link
+        href={"#"}
+        className="text-white bg-red-700 border-white rounded p-2 flex gap-2 items-center justify-center"
+      >
+        <div className="w-full h-auto flex flex-col justify-center mr-3 gap-2">
+          <div className="text-[10px] w-16 h-3 bg-gray-400"></div>
+          <div className="text-sm w-20 h-3 bg-gray-400"></div>
+        </div>
+        <div className="w-10 h-10">
           <div
-            className="inline-block h-5 w-5 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] text-success motion-reduce:animate-[spin_1.5s_linear_infinite]"
-            role="status"
-          >
-            <span className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">
-              Loading...
-            </span>
-          </div>
-        </Button>
-      </div>
+            className="rounded-full min-w-10 h-10 bg-gray-400"
+          />
+        </div>
+      </Link>
+    </div>
     );
-  return <>{!session ? <ButtonSign /> : <LogOutbutton />}</>;
+  return <> {!session ? <ButtonSign /> : <LogOutbutton />}</>;
 }

@@ -79,7 +79,6 @@ export const authOptions: AuthOptions = {
   session: { strategy: "jwt" },
   callbacks: {
     async signIn({ user, account }) {
-
       // Handle Google/Github login
       if (account?.provider === "google" || account?.provider === "github") {
         const email = user.email;
@@ -109,7 +108,13 @@ export const authOptions: AuthOptions = {
       }
       return true;
     },
-    async jwt({ token, user }) {
+    async jwt({ token, user, trigger ,session }) {
+      if (trigger === "update") {
+        return {
+          ...token,
+          ...session?.user,
+        };
+      }
       if (user) {
         token.id = user.id;
         token.role = user.role;
@@ -118,6 +123,7 @@ export const authOptions: AuthOptions = {
       return token;
     },
     async session({ session, token }) {
+
       session.user = {
         id: token.id as string,
         email: token.email as string,

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import CharacterCard from "@/app/components/anime/chara-card";
 import prisma from "@/libs/prisma";
 import { Label } from "@radix-ui/react-label";
@@ -18,31 +19,33 @@ export default async function DeskAnimePage({
   const animeId = Number(params.id);
   const session = await AuthSession();
 
-  // Fetch data anime dari database
+  // Ambil data anime dari database
   const nime = await prisma.anime2.findUnique({
     where: {
       id: animeId,
     },
   });
-  const chara = await prisma.karakter.findMany({
-    where: {
-      animeId,
-    },
-  });
+  // Fetch data character
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/api/nimes/${params.id}/character`
+  );
+  const chara = await response.json();
+
+  // Ambil data komentar
   const komentar = await prisma.komentar.findMany({
     where: {
       animeId,
     },
   });
 
+  // Ambil data collection
   const Collection = await prisma.collection.findMany({
     where: {
       userId: session?.id,
-      animeId
+      animeId,
     },
-  })
-  
-  console.log("Ini Collection",Collection);
+  });
+
   if (!chara) {
     return;
   }
@@ -94,7 +97,7 @@ export default async function DeskAnimePage({
               <Calendar className="w-5 h-5 ml-2" />
               {nime.aired}
             </Label>
-            <AnimeButtonFavorites params={animeId} data={Collection}/>
+            <AnimeButtonFavorites params={animeId} data={Collection} />
           </section>
           <div className="mt-3 flex justify-center gap-3 w-full p-2">
             {Box.map((bok, index) => {
@@ -134,7 +137,7 @@ export default async function DeskAnimePage({
       <section className="p-5 mt-12 relative">
         <h2 className="text-2xl font-bold my-4 text-[#fc0b03]">Characters</h2>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          {chara.map((char) => (
+          {chara.characters.map((char: any) => (
             <CharacterCard key={char.id} character={char} />
           ))}
         </div>

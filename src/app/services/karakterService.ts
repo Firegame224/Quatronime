@@ -4,8 +4,7 @@ import { Karakter } from "../models/karakter";
 export class KarakterService {
   async getallKarakters(animeId: number) {
     return await prisma.karakter.findMany({
-      where: { animeId },
-      include: { anime: true },
+      where: { animeId }
     });
   }
   async createKarakter(

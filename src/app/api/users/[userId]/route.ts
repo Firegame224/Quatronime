@@ -28,7 +28,7 @@ export async function PATCH(request: NextRequest, { params }: UserMethodProps) {
       },
     })
 
-    return NextResponse.json(updatedUser, { status: 200 });
+    return NextResponse.json({user: updatedUser , message: "Berhasil Update User Role"}, { status: 200 });
     } catch (error) {
     return NextResponse.json({ message: `Error ada di Catch: ${error}` }, { status: 500 });
   }
