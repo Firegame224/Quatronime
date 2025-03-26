@@ -24,8 +24,8 @@ export default function AnimePage() {
   }, [page]);
 
   return (
-    <div className="text-white">
-      <div className="p-2 md:p-8 w-full min-h-screen">
+    <div className="text-white min-h-screen">
+      <div className="p-2 md:p-8 w-full">
         <div className="w-full flex justify-between">
           <h1 className="text-2xl font-bold">List Anime</h1>
           <Link href="/" className="hover:underline text-[#9e1313] dark:hover:text-white transition duration-500 ease-in-out flex items-center">
@@ -40,7 +40,7 @@ export default function AnimePage() {
         <Button
           onClick={() => setPage(page - 1)}
           disabled={page === 1}
-          className="bg-red-500"
+          className="bg-red-600 hover:bg-red-400 transition ease-in duration-500" 
         >
           Prev
         </Button>
@@ -50,7 +50,7 @@ export default function AnimePage() {
         <Button
           onClick={() => setPage(page + 1)}
           disabled={page * limit >= total}
-          className="bg-red-500"
+          className="bg-red-600 hover:bg-red-400 transition ease-in duration-500"
         >
           Next
         </Button>

@@ -54,6 +54,7 @@ export default function KomentarAnimeInput({ params }: KomentarProps) {
       if (response.ok) {
         toast.success("Komentar berhasil di tambahkan");
         setComment("")
+        setOnClick(false)
         router.refresh();
       }
     } catch (error) {

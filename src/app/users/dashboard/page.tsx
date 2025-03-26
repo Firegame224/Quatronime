@@ -34,7 +34,7 @@ export default async function Dashboard() {
   })
   return (
     <div className="w-full min-h-screen flex">
-      <div className="w-full items-center flex md:flex justify-center flex-col gap-2 p-4 rounded-lg min-h-screen">
+      <div className="w-full items-center flex md:flex justify-center flex-col gap-2 p-4 rounded-lg h-full">
         <div className="w-full justify-between flex">
           <h1 className="text-2xl font-semibold text-white">Profile</h1>
           <Link

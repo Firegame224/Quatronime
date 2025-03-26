@@ -20,7 +20,7 @@ export default function UsersFavoritesKomentar({
       <nav className="flex items-center border-b-2 border-white w-full h-10 pb-2 mb-2 md:hidden">
         <Button
           className={`${
-            isFavorite ? "bg-red-600 hover:bg-red-400" : "bg-transparent"
+            isFavorite ? "bg-red-600" : "bg-transparent"
           } text-white w-1/2 h-full transition ease-in duration-500`}
           onClick={() => setIsFavorite(true)}
         >
@@ -28,7 +28,7 @@ export default function UsersFavoritesKomentar({
         </Button>
         <Button
           className={`${
-            isFavorite ? "bg-transparent" : "bg-red-600 hover:bg-red-400"
+            isFavorite ? "bg-transparent" : "bg-red-600"
           } text-white w-1/2 h-full transition ease-in duration-500`}
           onClick={() => setIsFavorite(false)}
         >
