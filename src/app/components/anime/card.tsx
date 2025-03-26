@@ -20,7 +20,7 @@ interface KartuProps {
 export default function Kartu({ Api }: { Api: KartuProps[] }) {
   if (Api.length === 0) {
     return (
-      <section className="grid grid-cols-3 justify-center items-center md:gap-5 md:grid-cols-5 lg:grid-cols-6 gap-2">
+      <section className="grid grid-cols-3 justify-center items-center md:gap-9 md:grid-cols-5 lg:grid-cols-6 gap-2">
         <div className="bg-gray-800 p-2 rounded-lg md:p-4 text-center shadow-md animate-pulse flex flex-col gap-1">
           <div className="w-[105px] h-[110px] md:w-36 md:h-36  mx-auto rounded-sm bg-gray-600"></div>
           <div className="mt-1 h-4 w-[105px] md:w-36 mx-auto bg-gray-600 rounded"></div>
