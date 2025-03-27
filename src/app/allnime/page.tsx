@@ -10,7 +10,7 @@ export default function AnimePage() {
   const [animes, setAnimes] = useState([]);
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState(0);
-  const limit = 10; // Jumlah anime per halaman
+  const limit = 10;
 
   useEffect(() => {
     async function fetchAnime() {

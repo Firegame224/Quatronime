@@ -32,7 +32,7 @@ export default function SearchNimeComponent() {
   }
   return (
     <form
-      className="flex items-center w-full p-2 md:w-auto text-white"
+      className="flex items-center w-full p-2  text-white"
       onSubmit={handleSubmit}
     >
       <Input
@@ -40,7 +40,7 @@ export default function SearchNimeComponent() {
         placeholder="Cari Anime"
         ref={InputRef}
         onChange={(e) => console.log(e.target.value)}
-        className="bg-transparent text-white font-sans"
+        className="bg-transparent text-white font-sans md:w-[400px]"
       />
       <Button
         type="submit"
