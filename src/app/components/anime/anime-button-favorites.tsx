@@ -37,6 +37,7 @@ export default function AnimeButtonFavorites({
         toast.error("Gagal menambahkan ke favorit");
       }
       if (response.ok) {
+        toast.success("Berhasil menambahkan ke favorit");
         router.refresh();
       }
     } catch (error) {
@@ -93,7 +94,7 @@ export default function AnimeButtonFavorites({
         <>
           {data.length > 0 ? (
             <Button
-              className="group text-[#fc0b03] bg-white border-2 border-[#fc0b03] justify-center shadow-red-500/50 flex transition absolute bottom-1 right-4 items-center p-0 rounded-full"
+              className="group text-[#fc0b03] border-2 border-[#fc0b03] justify-center shadow-red-500/50 flex transition absolute bottom-1 right-4 items-center p-0 rounded-full"
               size={"icon"}
               onClick={handleDeleteFavorite}
             >
