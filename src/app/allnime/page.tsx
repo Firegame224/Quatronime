@@ -36,7 +36,7 @@ export default function AnimePage() {
         <Kartu Api={animes} />
       </div>
       {/* Pagination */}
-      <div className="flex justify-center mt-6 gap-4">
+      <div className="flex justify-center mt-6 gap-4 items-center w-full p-8">
         <Button
           onClick={() => setPage(page - 1)}
           disabled={page === 1}

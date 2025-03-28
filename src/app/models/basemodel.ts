@@ -7,6 +7,6 @@ export abstract class BaseModel {
         this.createdAt = new Date();
         this.updatedAt = new Date();
     }
-
+    
     abstract save():void;
 }

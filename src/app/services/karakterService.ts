@@ -41,6 +41,7 @@ export class KarakterService {
       data,
     });
   }
+
   async deleteKarakter(charId: string) {
     return prisma.karakter.delete({ where: { id: charId } });
   }

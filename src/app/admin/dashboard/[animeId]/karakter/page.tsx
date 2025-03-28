@@ -18,8 +18,8 @@ const KarakterPage = async ({params}:{params:{animeId:string}}) => {
     CreatedAt:item.CreatedAt ? format(new Date (item.CreatedAt), "MMM do, yyyy") : "N/A",
   }))
   return (
-    <div className="flex-col ">
-      <div className="flex-1 space-y-4 p-8 pt-6 h-screen">
+    <div className="flex-col">
+      <div className="flex-1 space-y-4 p-8 pt-6 min-h-screen">
         <KarakterClient data = {FormattedChara} />
       </div>
     </div>
