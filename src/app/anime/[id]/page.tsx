@@ -60,7 +60,7 @@ export default async function DeskAnimePage({
   const Box = [
     {
       p1: "Score",
-      p2: nime.score,
+      p2: nime.score + ",00",
     },
     {
       p1: "Source",

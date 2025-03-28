@@ -45,7 +45,7 @@ export default function AnimeCarousel(data: { data: any }) {
                   className="w-full h-52 md:h-72 object-cover opacity-80 rounded-md"
                 />
                 <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[#121212]">
-                  <p className="absolute top-4 text-white left-8 text-[20px] max-w-[300px] truncate md:text-[55px] drop-shadow-[0_0_10px_rgba(255,255,255,0.8)]">
+                  <p className="absolute top-4 text-white left-8 text-[20px] max-w-[250px] sm:max-w-[300px] md:max-w-[90%] truncate md:text-[55px] drop-shadow-[0_0_10px_rgba(255,255,255,0.8)]">
                     {anime.title}
                   </p>
                   <p className="absolute top-16 md:top-24 left-8 text-white text-[15px] md:text-[20px] drop-shadow-[0_0_10px_rgba(255,255,255,0.8)] flex gap-2 items-center justify-center">
@@ -55,7 +55,7 @@ export default function AnimeCarousel(data: { data: any }) {
                     <Star className="w-4 h-4 md:w-6 md:h-6" fill="yellow" />
                     {anime.score},00
                   </p>
-                  <p className="absolute top-5 text-white right-10  text-[15px] md:text-[20px] drop-shadow-[0_0_10px_rgba(255,255,255,0.8)]">
+                  <p className="absolute top-5 md:top-10 text-white right-10 text-[15px] md:text-[25px] drop-shadow-[0_0_10px_rgba(255,255,255,0.8)]">
                     #{anime.ranking}
                   </p>
                   <p className="absolute flex items-center justify-center gap-3 bottom-5 text-white left-10 text-[15px] md:text-[20px] drop-shadow-[0_0_10px_rgba(255,255,255,0.8)]">
@@ -63,7 +63,7 @@ export default function AnimeCarousel(data: { data: any }) {
                     {anime.type}
                   </p>
                   <p className="absolute bottom-5 text-white right-10 text-[15px] md:text-[20px] drop-shadow-[0_0_10px_rgba(255,255,255,0.8)]">
-                    {anime.episodes} Eps
+                    {anime.episodes} Episodes
                   </p>
                 </div>
               </Link>
