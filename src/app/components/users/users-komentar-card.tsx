@@ -26,7 +26,7 @@ export default function UsersKomentarCard({ data }: { data: any }) {
                 alt={comment.anime.title}
                 width={100}
                 height={100}
-                className="rounded-md w-full h-full object-cover border-2 border-[#FF204E]"
+                className="rounded-md min-w-[80px] h-full object-cover border-2 border-[#FF204E]"
               />
             </div>
             <Image
@@ -43,7 +43,7 @@ export default function UsersKomentarCard({ data }: { data: any }) {
                   ? new Date(comment.updateAt).toLocaleString()
                   : "Tanggal Tidak diketahui"}
               </p>
-              <p className="font-semibold">{comment.anime.title}</p>
+              <p className="font-semibold line-clamp-1">{comment.anime.title}</p>
               <p className="text-sm max-w-[200px] truncate">
                 {comment.komentar}
               </p>

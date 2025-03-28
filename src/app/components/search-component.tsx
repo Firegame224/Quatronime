@@ -2,7 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { SearchIcon } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import React, { useRef, useState } from "react";
 import toast from "react-hot-toast";
 
@@ -10,6 +10,7 @@ export default function SearchNimeComponent() {
   const InputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const pathname = usePathname();
   const handleSubmit = (e: React.FormEvent) => {
     try {
       setIsLoading(true);
@@ -31,24 +32,28 @@ export default function SearchNimeComponent() {
     toast.loading("Mencari Anime...");
   }
   return (
-    <form
-      className="flex items-center w-full p-2  text-white"
-      onSubmit={handleSubmit}
-    >
-      <Input
-        type="text"
-        placeholder="Cari Anime"
-        ref={InputRef}
-        onChange={(e) => console.log(e.target.value)}
-        className="bg-transparent text-white font-sans md:w-[400px]"
-      />
-      <Button
-        type="submit"
-        color="white"
-        className="bg-white hover:bg-slate-300"
-      >
-        <SearchIcon color="black" width={30} height={30} />
-      </Button>
-    </form>
+    <>
+      {pathname === "/auth/signIn" || pathname === "/auth/signUp" ? null : (
+        <form
+          className="flex items-center w-full p-2  text-white"
+          onSubmit={handleSubmit}
+        >
+          <Input
+            type="text"
+            placeholder="Cari Anime"
+            ref={InputRef}
+            onChange={(e) => console.log(e.target.value)}
+            className="bg-transparent text-white font-sans md:w-[400px]"
+          />
+          <Button
+            type="submit"
+            color="white"
+            className="bg-white hover:bg-slate-300"
+          >
+            <SearchIcon color="black" width={30} height={30} />
+          </Button>
+        </form>
+      )}
+    </>
   );
 }

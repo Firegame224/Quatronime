@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import React from "react";
-import { FaGithub } from "react-icons/fa";
+import { FaGithub, FaSpinner } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { signIn } from "next-auth/react";
 import { z } from "zod";
@@ -31,6 +31,7 @@ export default function Login() {
   const [password, setPassword] = useState<string>("");
   const [passwordError, setPasswordError] = useState<string>("");
   const [isChecked, setIsChecked] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const OauthGoogle = async () => {
     await signIn("google",{callbackUrl:"/"})
   };
@@ -50,6 +51,7 @@ export default function Login() {
   };
 
   const HandleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    setIsLoading(true);
     e.preventDefault();
     try {
       const validateEmail = emailSchme.safeParse(email);
@@ -77,6 +79,8 @@ export default function Login() {
     } catch (error) {
       console.error(error);
       return;
+    } finally {
+      setIsLoading(false);
     }
   };
   return (
@@ -162,7 +166,7 @@ export default function Login() {
           </div>
         </div>
         <Button className="w-full bg-red-600 hover:bg-red-400 " type="submit">
-          <p>SignIn</p>
+          {isLoading ? <FaSpinner className="animate-spin" size={20} /> :<p>SignIn</p>}
         </Button>
         <div className="text-[13px] text-gray-600 font-semibold flex w-full justify-center gap-1 items-center">
           <p>Don't have an account?</p>

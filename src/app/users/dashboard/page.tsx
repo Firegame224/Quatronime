@@ -39,7 +39,7 @@ export default async function Dashboard() {
           <h1 className="text-2xl font-semibold text-white">Profile</h1>
           <Link
             href="/"
-            className="hover:underline text-[#9e1313] dark:hover:text-white transition duration-500 ease-in-out flex items-center"
+            className="hover:bg-red-400 p-2 rounded-md bg-red-600 text-white transition duration-500 ease-in-out flex items-center"
           >
             <ArrowLeft className="w-6 h-6" />
             Back

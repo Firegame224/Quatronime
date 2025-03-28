@@ -8,6 +8,7 @@ import toast from "react-hot-toast";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { AlertAnime } from "./anime-logout";
+import { FaSpinner } from "react-icons/fa";
 
 interface KomentarProps {
   params: number;
@@ -107,7 +108,7 @@ export default function KomentarAnimeInput({ params }: KomentarProps) {
             type="submit"
             className="bg-red-500 hover:bg-red-300 transition ease-in duration-500 disabled:bg-gray-400 disabled:cursor-not-allowed self-end"
           >
-            {isLoading ? "Loading..." : "Kirim"}
+            {isLoading ? <FaSpinner className="animate-spin" size={20}/>: "Kirim"}
           </Button>
         </div>
       ) : null}

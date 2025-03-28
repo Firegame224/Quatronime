@@ -8,6 +8,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
+import { FaSpinner } from "react-icons/fa";
 
 export default function FormEmailUsers() {
   const [formData, setFormData] = useState({
@@ -98,7 +99,7 @@ export default function FormEmailUsers() {
           className="w-full items-center bg-red-600 hover:bg-red-400 "
           type="submit"
         >
-          {isLoading ? <p>Loading...</p> : <p>Kirim</p>}
+          {isLoading ? <FaSpinner className="w-6 h-6 animate-spin" /> : <p>Kirim</p>}
           <Send className="w-6 h-6" />
         </Button>
       </form>
