@@ -41,7 +41,7 @@ const SellAction: React.FC<ActionProps> = ({ data }) => {
         toast.error("Terjadi error pada server di method Delete users");
       }
       if (response.ok) {
-        toast.success("Data Anime Berhasil dihapus");
+        toast.success("Data Users Berhasil dihapus");
         router.refresh();
         router.push(`/admin/users`);
       }
