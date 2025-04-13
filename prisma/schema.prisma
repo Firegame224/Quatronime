@@ -55,7 +55,7 @@ model Komentar {
   // User relation
   user    User    @relation("User to Komentar", fields: [userId], references: [id])
   userId  String
-  email   String?
+  name    String?
   // Anime Relation
   anime   Anime2? @relation("Anime to Komentar", fields: [animeId], references: [id])
   animeId Int
@@ -80,12 +80,12 @@ model User {
 }
 
 model Collection {
-  id       String  @id @default(uuid())
-  animeId  Int
-  user     User    @relation("User to Collection", fields: [userId], references: [id])
-  userId   String
+  id      String @id @default(uuid())
+  animeId Int
+  user    User   @relation("User to Collection", fields: [userId], references: [id])
+  userId  String
 
-  anime    Anime2  @relation("Anime to Collection", fields: [animeId], references: [id])
+  anime Anime2 @relation("Anime to Collection", fields: [animeId], references: [id])
 
   @@unique([userId, animeId])
 }

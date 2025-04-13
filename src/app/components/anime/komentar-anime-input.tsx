@@ -46,7 +46,7 @@ export default function KomentarAnimeInput({ params }: KomentarProps) {
         headers: {
           "content-type": "application/json",
         },
-        body: JSON.stringify({ email: session?.user.email, comment , image: session?.user.image }),
+        body: JSON.stringify({ name: session?.user.name, comment , image: session?.user.image }),
       });
 
       if (!response.ok) {
@@ -64,7 +64,7 @@ export default function KomentarAnimeInput({ params }: KomentarProps) {
       setIsLoading(false);
     }
   };
-  console.log(session?.user.id)
+
   return (
     <>
     <AlertAnime isOpen={onOpen} onClose={() => setOnOpen(false)} onConfirm={() => {router.push("/auth/signIn")}} loading={isLoading} />

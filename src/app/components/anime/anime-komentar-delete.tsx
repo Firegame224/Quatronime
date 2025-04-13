@@ -9,7 +9,7 @@ import toast from "react-hot-toast";
 
 interface KomentarProps {
   data: {
-    email: string;
+    name: string;
     id: string;
   };
   params: number;
@@ -27,7 +27,7 @@ export default function AnimeKomentarDelete({ data, params }: KomentarProps) {
         headers: {
           "content-type": "application/json",
         },
-        body: JSON.stringify({ email: session?.user.email }),
+        body: JSON.stringify({ name: session?.user.name }),
       });
       if (!response.ok) {
         toast.error("gagal menghapus komentar");
@@ -48,15 +48,15 @@ export default function AnimeKomentarDelete({ data, params }: KomentarProps) {
   return (
     <>
       <AlertModal isOpen={isOpen} loading={isLoading} onClose={() => setIsOpen(false)} onConfirm={handleDelete} />
-      {session && session.user.email === data?.email ? (
+      {session && session.user.name === data?.name ? (
         <Button
           onClick={()=> setIsOpen(true)}
           type="submit"
           disabled={isLoading}
-          className="bg-[#fc0b03] hover:bg-red-300 text-white text-xs"
+          className="bg-[#fc0b03] group hover:bg-red-300 text-white text-xs"
           size={"icon"}
         >
-          <Trash2 className="w-4 h-4" fill={isLoading ? "white" : "#fc0b03"} />
+          <Trash2 className="w-4 h-4 group-hover:fill-red-300" fill={isLoading ? "white" : "#fc0b03"} />
         </Button>
       ) : null}
     </>

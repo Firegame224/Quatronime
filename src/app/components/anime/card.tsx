@@ -21,35 +21,65 @@ export default function Kartu({ Api }: { Api: KartuProps[] }) {
   if (Api.length === 0) {
     return (
       <section className="grid grid-cols-3 justify-center items-center md:gap-9 md:grid-cols-5 lg:grid-cols-6 gap-2">
-        <div className="bg-gray-600 p-2 rounded-lg md:p-4 text-center shadow-md animate-pulse flex flex-col gap-1">
-          <div className="w-[105px] h-[110px] md:w-36 md:h-36  mx-auto rounded-sm bg-gray-700"></div>
-          <div className="mt-1 h-4 w-[105px] md:w-36 mx-auto bg-gray-700 rounded"></div>
-          <div className="mt-1 h-4 w-[105px] md:w-36 mx-auto bg-gray-700 rounded"></div>
+        <div className="flex flex-col justify-center items-center p-1 animate-pulse">
+          <div className="bg-gray-600 h-44 w-full sm:h-60 rounded-lg shadow-md"></div>
+          <div className="mt-1 h-4 sm:h-6 w-[55%] self-start bg-gray-600 rounded"></div>
+          <div className="mt-1 h-6 sm:h-8 w-full bg-gray-600 rounded"></div>
         </div>
-        <div className="bg-gray-600 p-2 rounded-lg  md:p-4 text-center shadow-md animate-pulse flex flex-col gap-1">
-          <div className="w-[105px] h-[110px] md:h-36 md:w-36 mx-auto rounded-sm bg-gray-700"></div>
-          <div className="mt-1 h-4 w-[105px] md:w-36 mx-auto bg-gray-700 rounded"></div>
-          <div className="mt-1 h-4 w-[105px] md:w-36 mx-auto bg-gray-700 rounded"></div>
+        <div className="flex flex-col justify-center items-center p-1 animate-pulse">
+          <div className="bg-gray-600 h-44 w-full sm:h-60 rounded-lg shadow-md"></div>
+          <div className="mt-1 h-4 sm:h-6 w-[55%] self-start bg-gray-600 rounded"></div>
+          <div className="mt-1 h-6 sm:h-8 w-full bg-gray-600 rounded"></div>
         </div>
-        <div className="bg-gray-600 p-2 rounded-lg md:p-4 text-center shadow-md animate-pulse flex flex-col gap-1">
-          <div className="w-[105px] h-[110px] md:w-36 md:h-36 mx-auto rounded-sm bg-gray-700"></div>
-          <div className="mt-1 h-4 w-[105px] md:w-36 mx-auto bg-gray-700 rounded"></div>
-          <div className="mt-1 h-4 w-[105px] md:w-36 mx-auto bg-gray-700 rounded"></div>
+        <div className="flex flex-col justify-center items-center p-1 animate-pulse">
+          <div className="bg-gray-600 h-44 w-full sm:h-60 rounded-lg shadow-md"></div>
+          <div className="mt-1 h-4 sm:h-6 w-[55%] self-start bg-gray-600 rounded"></div>
+          <div className="mt-1 h-6 sm:h-8 w-full bg-gray-600 rounded"></div>
         </div>
-        <div className="bg-gray-600 p-2 rounded-lg md:p-4 text-center shadow-md animate-pulse flex flex-col gap-1">
-          <div className="w-[105px] h-[110px] md:w-36 md:h-36 mx-auto rounded-sm bg-gray-700"></div>
-          <div className="mt-1 h-4 w-[105px] md:w-36 mx-auto bg-gray-700 rounded"></div>
-          <div className="mt-1 h-4 w-[105px] md:w-36 mx-auto bg-gray-700 rounded"></div>
+        <div className="flex flex-col justify-center items-center p-1 animate-pulse">
+          <div className="bg-gray-600 h-44 w-full sm:h-60 rounded-lg shadow-md"></div>
+          <div className="mt-1 h-4 sm:h-6 w-[55%] self-start bg-gray-600 rounded"></div>
+          <div className="mt-1 h-6 sm:h-8 w-full bg-gray-600 rounded"></div>
         </div>
-        <div className="bg-gray-600 p-2 rounded-lg md:p-4 text-center shadow-md animate-pulse flex flex-col gap-1">
-          <div className="w-[105px] h-[110px] md:w-36 md:h-36 mx-auto rounded-sm bg-gray-700"></div>
-          <div className="mt-1 h-4 w-[105px] md:w-36 mx-auto bg-gray-700 rounded"></div>
-          <div className="mt-1 h-4 w-[105px] md:w-36 mx-auto bg-gray-700 rounded"></div>
+        <div className="flex flex-col justify-center items-center p-1 animate-pulse">
+          <div className="bg-gray-600 h-44 w-full sm:h-60 rounded-lg shadow-md"></div>
+          <div className="mt-1 h-4 sm:h-6 w-[55%] self-start bg-gray-600 rounded"></div>
+          <div className="mt-1 h-6 sm:h-8 w-full bg-gray-600 rounded"></div>
         </div>
-        <div className="bg-gray-600 p-2 rounded-lg md:p-4 text-center shadow-md animate-pulse flex flex-col gap-1">
-          <div className="w-[105px] h-[110px] md:w-36 md:h-36 mx-auto rounded-sm bg-gray-700"></div>
-          <div className="mt-1 h-4 w-[105px] md:w-36 mx-auto bg-gray-700 rounded"></div>
-          <div className="mt-1 h-4 w-[105px] md:w-36 mx-auto bg-gray-700 rounded"></div>
+        <div className="flex flex-col justify-center items-center p-1 animate-pulse">
+          <div className="bg-gray-600 h-44 w-full sm:h-60 rounded-lg shadow-md"></div>
+          <div className="mt-1 h-4 sm:h-6 w-[55%] self-start bg-gray-600 rounded"></div>
+          <div className="mt-1 h-6 sm:h-8 w-full bg-gray-600 rounded"></div>
+        </div>
+        <div className="flex flex-col justify-center items-center p-1 animate-pulse">
+          <div className="bg-gray-600 h-44 w-full sm:h-60 rounded-lg shadow-md"></div>
+          <div className="mt-1 h-4 sm:h-6 w-[55%] self-start bg-gray-600 rounded"></div>
+          <div className="mt-1 h-6 sm:h-8 w-full bg-gray-600 rounded"></div>
+        </div>
+        <div className="flex flex-col justify-center items-center p-1 animate-pulse">
+          <div className="bg-gray-600 h-44 w-full sm:h-60 rounded-lg shadow-md"></div>
+          <div className="mt-1 h-4 sm:h-6 w-[55%] self-start bg-gray-600 rounded"></div>
+          <div className="mt-1 h-6 sm:h-8 w-full bg-gray-600 rounded"></div>
+        </div>
+        <div className="flex flex-col justify-center items-center p-1 animate-pulse">
+          <div className="bg-gray-600 h-44 w-full sm:h-60 rounded-lg shadow-md"></div>
+          <div className="mt-1 h-4 sm:h-6 w-[55%] self-start bg-gray-600 rounded"></div>
+          <div className="mt-1 h-6 sm:h-8 w-full bg-gray-600 rounded"></div>
+        </div>
+        <div className="flex flex-col justify-center items-center p-1 animate-pulse">
+          <div className="bg-gray-600 h-44 w-full sm:h-60 rounded-lg shadow-md"></div>
+          <div className="mt-1 h-4 sm:h-6 w-[55%] self-start bg-gray-600 rounded"></div>
+          <div className="mt-1 h-6 sm:h-8 w-full bg-gray-600 rounded"></div>
+        </div>
+        <div className="flex flex-col justify-center items-center p-1 animate-pulse">
+          <div className="bg-gray-600 h-44 w-full sm:h-60 rounded-lg shadow-md"></div>
+          <div className="mt-1 h-4 sm:h-6 w-[55%] self-start bg-gray-600 rounded"></div>
+          <div className="mt-1 h-6 sm:h-8 w-full bg-gray-600 rounded"></div>
+        </div>
+        <div className="flex flex-col justify-center items-center p-1 animate-pulse">
+          <div className="bg-gray-600 h-44 w-full sm:h-60 rounded-lg shadow-md"></div>
+          <div className="mt-1 h-4 sm:h-6 w-[55%] self-start bg-gray-600 rounded"></div>
+          <div className="mt-1 h-6 sm:h-8 w-full bg-gray-600 rounded"></div>
         </div>
       </section>
     );
@@ -59,7 +89,10 @@ export default function Kartu({ Api }: { Api: KartuProps[] }) {
       {Api.map((anime: any) => {
         return (
           <div key={anime.id}>
-            <Link href={`/anime/${anime.id}`} className="flex justify-center shadow-none">
+            <Link
+              href={`/anime/${anime.id}`}
+              className="flex justify-center shadow-none"
+            >
               <Card className="group rounded-sm bg-transparent items-center justify-center flex border-none max-w-[200px] shadow-none hover:bg-gray-800/50">
                 <CardContent className="flex flex-col items-center justify-between w-full relative gap-2 p-2 shadow-none">
                   <div className="w-full h-full relative rounded-tl-md">

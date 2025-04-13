@@ -31,7 +31,7 @@ export default function UsersKomentarCard({ data }: { data: any }) {
             </div>
             <Image
               src={comment.image}
-              alt={comment.email}
+              alt={comment.name}
               width={100}
               height={100}
               className="absolute bottom-1 left-16 rounded-full w-10 h-10 border-[#FF204E] border-2"

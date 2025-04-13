@@ -31,13 +31,13 @@ export default function NavbarSmall() {
       </PopoverTrigger>
       <PopoverContent className="w-48 p-0 mt-2 mr-2">
         <Command>
-          {pathname === "/auth/signIn" || pathname === "/auth/signUp" ? 
+          {pathname.startsWith("/auth") ? 
           <CommandGroup heading="Menu">
           {/* SignUp */}
           <CommandItem onSelect={() => setIsOpen(false)} className="p-2">
             <Link
               href={
-                  "/"
+                  "/auth/signIn"
               }
               className="w-full p-2 rounded-md hover:bg-gray-100 flex items-center gap-4 justify-center text-sm"
             >

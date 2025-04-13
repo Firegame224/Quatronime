@@ -121,7 +121,7 @@ export default async function DeskAnimePage({
               );
             })}
           </div>
-          <h1 className="text-2xl font-bold md:hidden">{nime.title}</h1>
+          <h1 className="text-2xl text-center font-bold md:hidden mx-2">{nime.title}</h1>
         </div>
         <section className="md:max-w-3xl w-full p-5 mx-auto">
           <h1 className="text-2xl font-bold hidden md:flex">{nime.title}</h1>

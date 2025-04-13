@@ -16,11 +16,11 @@ export default function ButtonSign() {
   };
 
   const handleBackClick = () => {
-    router.push("/");
+    router.back();
   };
   return (
     <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-revers">
-      {pathName === "/auth/signIn" || pathName === "/auth/signUp" ? (
+      {pathName.startsWith("/auth") ? (
         <div className="flex w-full h-full items-center">
           <button
             onClick={handleBackClick}

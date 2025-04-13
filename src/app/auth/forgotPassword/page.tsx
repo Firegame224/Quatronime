@@ -44,13 +44,13 @@ export default function Login() {
             },
             body : JSON.stringify({email : email})}
            )
+           const data = await response.json();
            if (!response.ok) {
             toast.error("Maaf email yg anda masukan mungkin tidak ada")
            }
            if (response.ok) {
             toast.success("Berhasil")
-            router.push(`/auth/updatePass?email=${encodeURIComponent(email)}`);
-            return response.json();
+            router.push(`/auth/updatePass?id=${encodeURIComponent(data.data.id)}`);
            }
         } catch (error) {
             console.error(error);

@@ -60,6 +60,7 @@ export default function AnimeButtonFavorites({
         toast.error("Gagal menghapus favorit");
       }
       if (response.ok) {
+        toast.success("Berhasil menghapus favorit");
         router.refresh();
       }
     } catch (error) {

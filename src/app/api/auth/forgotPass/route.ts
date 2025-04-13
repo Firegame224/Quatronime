@@ -7,16 +7,16 @@ export async function PATCH(request: NextRequest) {
     try {
         const body = await request.json();
   
-        const { email, newPassword } = body;
+        const { id, newPassword } = body;
   
-        if (!email || !newPassword) {
+        if (!id || !newPassword) {
             return NextResponse.json({ message: "Email dan password harus diisi" }, { status: 400 });
         }
   
         const hashedPassword = await bcrypt.hash(newPassword, 10);
   
         const updateData = await prisma.user.update({
-            where: { email },
+            where: { id },
             data: { password: hashedPassword },
         });
   
@@ -32,4 +32,3 @@ export async function PATCH(request: NextRequest) {
         return NextResponse.json({ message:error || "Terjadi kesalahan server" }, { status: 500 });
     }
   }
-  

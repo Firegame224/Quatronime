@@ -10,21 +10,21 @@ export async function POST(request : NextRequest,{params}: KomentarProps) {
     try {
         const animeId = Number(params.animeId)
         const body = await request.json();
-        const {comment , email , image} = body;
+        const {comment , name , image} = body;
 
-        if (!email) {
+        if (!name) {
             return NextResponse.json({message:"Harap login terlebih dahulu"},{status:400})
         }
         if (!comment) {
             return NextResponse.json({message:"Harap isi komentar"},{status:400})
         }
-        const exitingUser = await prisma.user.findUnique({
+        const exitingUser = await prisma.user.findFirst({
             where : {
-                email 
+                name
             }
         })
 
-        if (email !== exitingUser?.email) {
+        if (name !== exitingUser?.name) {
             return NextResponse.json({message:"User tidak ditemukan"},{status:404})
         }
         if (!exitingUser) {
@@ -35,7 +35,7 @@ export async function POST(request : NextRequest,{params}: KomentarProps) {
             data :{
                 animeId : animeId,
                 userId : exitingUser.id,
-                email : exitingUser.email,
+                name : exitingUser.name,
                 image,
                 komentar : comment,
             }

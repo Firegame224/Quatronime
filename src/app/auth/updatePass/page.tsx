@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
 import { Button } from "@/components/ui/button";
@@ -13,7 +14,7 @@ import { useSession } from "next-auth/react";
 export default function PasswordUpdate() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const email = searchParams.get("email");
+  const id = searchParams.get("id");
   const [password, setPassword] = useState<string>("");
   const passwordSchema = z
     .string()
@@ -40,7 +41,7 @@ export default function PasswordUpdate() {
         headers: {
           "content-type": "application/json",
         },
-        body: JSON.stringify({ email, newPassword: password }),
+        body: JSON.stringify({ id, newPassword: password }),
       });
 
       if (!response.ok) {
@@ -65,10 +66,6 @@ export default function PasswordUpdate() {
         onSubmit={handleSubmit}
       >
         <h1 className="text-2xl font-bold">Change Password</h1>
-        <p className="text-sm text-gray-500">
-          Email: {email || "Tidak ditemukan"}
-        </p>
-
         <Label htmlFor="password">Password Baru</Label>
         <Input
           id="password"

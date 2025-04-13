@@ -8,7 +8,7 @@ export async function DELETE(
   try {
     const CommandId = params.id;
     const body = await request.json();
-    const { email } = body;
+    const { name } = body;
 
     if (!CommandId) {
       return NextResponse.json(
@@ -16,16 +16,16 @@ export async function DELETE(
         { status: 404 }
       );
     }
-    const exitingUser = await prisma.user.findUnique({
+    const exitingUser = await prisma.user.findFirst({
       where: {
-        email,
+        name,
       },
     });
 
 
-    if (email !== exitingUser?.email) {
+    if (name !== exitingUser?.name) {
       return NextResponse.json(
-        { message: "User tidak ditemukan " + email + "=" + exitingUser?.email },
+        { message: "User tidak ditemukan " + name + "=" + exitingUser?.name },
         { status: 404 }
       );
     }
@@ -33,7 +33,7 @@ export async function DELETE(
     const deletedKomentar = await prisma.komentar.delete({
       where: {
         id: CommandId,
-        email : exitingUser?.email,
+        name : exitingUser?.name,
       },
     });
 
