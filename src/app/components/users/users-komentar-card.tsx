@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
-export default function UsersKomentarCard({ data }: { data: any }) {
+export default function UsersKomentarCard({ data = [] }: { data: [] }) {
     return (
     <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-4">
       {data.map((comment: any) => {

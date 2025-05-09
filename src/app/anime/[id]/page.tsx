@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import CharacterCard from "@/app/components/anime/chara-card";
-import prisma from "@/libs/prisma";
 import { Label } from "@radix-ui/react-label";
 import { Calendar } from "lucide-react";
 import Image from "next/image";
@@ -10,6 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import KomentarAnime from "@/app/components/anime/komentar-anime";
 import { AuthSession } from "@/libs/session";
 import AnimeButtonFavorites from "@/app/components/anime/anime-button-favorites";
+import { fetcher } from "@/libs/fetcher";
 
 export default async function DeskAnimePage({
   params,
@@ -20,31 +20,21 @@ export default async function DeskAnimePage({
   const session = await AuthSession();
 
   // Ambil data anime dari database
-  const nime = await prisma.anime2.findUnique({
-    where: {
-      id: animeId,
-    },
+  const { data: nime } = await fetcher({
+    port: `${process.env.NEXT_PUBLIC_API_URL}/api/nimes/${animeId}`,
   });
   // Fetch data character
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/api/nimes/${params.id}/character`
-  );
-  const chara = await response.json();
+  const { data: chara } = await fetcher({
+    port: `${process.env.NEXT_PUBLIC_API_URL}/api/nimes/${animeId}/character`,
+  });
 
   // Ambil data komentar
-  const komentar = await prisma.komentar.findMany({
-    where: {
-      animeId,
-    },
+  const { data: komentar } = await fetcher({
+    port: `${process.env.NEXT_PUBLIC_API_URL}/api/nimes/${animeId}/komentar`,
   });
 
   // Ambil data collection
-  const Collection = await prisma.collection.findMany({
-    where: {
-      userId: session?.id,
-      animeId,
-    },
-  });
+  const {data: Collection} = await fetcher({port : `${process.env.NEXT_PUBLIC_API_URL}/api/users/${session?.id}/collections`});
 
   if (!chara) {
     return;
@@ -75,10 +65,8 @@ export default async function DeskAnimePage({
       p2: nime.type,
     },
   ];
-  console.log(session?.id + " ini id user");
-  console.log("Ini Image " + nime.imageUrl);
   return (
-    <div className="max-w-screen min-h-screen text-white ">
+    <div className="max-w-screen min-h-screen text-white">
       <NavbarAnime />
       <div className="md:flex gap-5 w-full">
         <div className="flex flex-col items-center h-full md:h-screen">
@@ -113,7 +101,7 @@ export default async function DeskAnimePage({
             })}
           </div>
           <div className="flex flex-row w-full items-center justify-center gap-2 my-4">
-            {nime.genres.map((genre, index) => {
+            {nime.genres.map((genre: string, index: number) => {
               return (
                 <Badge className="p-3 bg-gray-700 " key={index}>
                   #{genre}
@@ -121,7 +109,9 @@ export default async function DeskAnimePage({
               );
             })}
           </div>
-          <h1 className="text-2xl text-center font-bold md:hidden mx-2">{nime.title}</h1>
+          <h1 className="text-2xl text-center font-bold md:hidden mx-2">
+            {nime.title}
+          </h1>
         </div>
         <section className="md:max-w-3xl w-full p-5 mx-auto">
           <h1 className="text-2xl font-bold hidden md:flex">{nime.title}</h1>
@@ -137,7 +127,7 @@ export default async function DeskAnimePage({
       <section className="p-5 mt-12 relative">
         <h2 className="text-2xl font-bold my-4 text-[#fc0b03]">Characters</h2>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          {chara.characters.map((char: any) => (
+          {chara.map((char: any) => (
             <CharacterCard key={char.id} character={char} />
           ))}
         </div>

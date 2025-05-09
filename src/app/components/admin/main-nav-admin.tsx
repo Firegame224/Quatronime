@@ -16,21 +16,16 @@ export default function MainNavAdmin({
   const routes = params ? [
     {
       href: `/admin/dashboard/${params.animeId}`,
-      label: "Dashboard",
+      label: "Informations",
       active: pathname === `/admin/dashboard/${params.animeId}`,
     },
     {
       href: `/admin/dashboard/${params.animeId}/settings`,
-      label: "settings",
+      label: "Settings",
       active: pathname === `/admin/dashboard/${params.animeId}/settings`,
-    },
-    {
-      href: `/admin/dashboard/${params.animeId}/informations`,
-      label: "informations",
-      active: pathname === `/admin/dashboard/${params.animeId}/informations`,
     }, {
       href: `/admin/dashboard/${params.animeId}/karakter`,
-      label: "karakter",
+      label: "Karakter",
       active: pathname === `/admin/dashboard/${params.animeId}/karakter`,
     }, {
       href: `/admin/dashboard/${params.animeId}/genres`,
@@ -39,7 +34,7 @@ export default function MainNavAdmin({
     }
   ] : [];
   return (
-    <nav className={cn("flex items-center space-x-4 lg:space-x-6", className)}>
+    <nav className={cn("flex items-center justify-center gap-5 w-full", className)}>
       {routes.map((route) => {
         return (
           <Link

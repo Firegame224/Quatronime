@@ -14,7 +14,7 @@ export default function AnimePage() {
 
   useEffect(() => {
     async function fetchAnime() {
-      const res = await fetch(`/api/anime?page=${page}&limit=${limit}`);
+      const res = await fetch(`/api/nimes?page=${page}&limit=${limit}`);
       if (!res.ok) return console.error("Gagal mengambil data");
       const data = await res.json();
       setAnimes(data.animes);

@@ -1,33 +1,34 @@
-import prisma from "@/libs/prisma";
+import React from "react";
+import InformationForm from "./components/settings-form";
 import { AuthSession } from "@/libs/session";
 import { redirect } from "next/navigation";
-import React from "react";
-import SettingsForm from "./components/settings-form";
+import { fetcher } from "@/libs/fetcher";
 
-interface SettingsProps {
-    params : {animeId : string}
+interface InformationsPageProps {
+    params : {
+        animeId : number
+    }
 }
-const SettingsPage : React.FC<SettingsProps> = async({params}) => {
-    const session = await AuthSession();
+const InformationsPage : React.FC<InformationsPageProps> = async ({params}) =>{
+    const session = await AuthSession()
+
+    const AnimeId = params.animeId
     if (!session) {
         redirect("/auth/signin");
     }
-    const anime = await prisma.anime2.findFirst({
-        where : {
-            id : Number(params.animeId)
-        }
-    })
+
+    const {data: anime} = await fetcher({port : `${process.env.NEXT_PUBLIC_API_URL}/api/nimes/${AnimeId}`})
 
     if (!anime) {
         redirect("/admin/dashboard");
     }
     return (
-        <div className="flex-col">
-            <div className="flex-1 space-y-4 p-8 pt-6">
-            <SettingsForm data={anime}/>
+        <div className="flex-col w-full h-full pb-6 bg-white">
+            <div className="flex px-14 pt-6 ">
+                <InformationForm data={anime}/>
             </div>
         </div>
-    );
-}
+    )
+} 
 
-export default SettingsPage
+export default InformationsPage

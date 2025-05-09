@@ -1,41 +1,32 @@
-import prisma from "@/libs/prisma";
 import React from "react";
 import Kartu from "./card";
 import Headernime from "./headernime";
 import AnimeCarousel from "./anime-carousel";
+import { fetcher } from "@/libs/fetcher";
 
 export default async function AnimePage() {
-  const TopAnime = await prisma.anime2.findMany({
-    where: { ranking: { lt: 25 } },
-    orderBy: {
-      ranking: "asc",
-    },
+  const { data: topAnime } = await fetcher({
+    port: `${process.env.NEXT_PUBLIC_API_URL}/api/nimes/top`,
   });
-  const fullAnime = await prisma.anime2.findMany({
-    where: { favorites: { gt: 2 } },
+  const { data: recomAnime } = await fetcher({
+    port: `${process.env.NEXT_PUBLIC_API_URL}/api/nimes/recomendation`,
   });
-  const top10 = await prisma.anime2.findMany({
-    where: {
-      ranking: {
-        lte: 10,
-      },
-    },orderBy : {
-
-      ranking : "asc"
-    }
+  const { data: top10 } = await fetcher({
+    port: `${process.env.NEXT_PUBLIC_API_URL}/api/nimes/top10`,
   });
+  
   return (
     <div className="w-full min-h-screen">
-      <div className="w-full p-3 md:p-5">
+      <div className="w-full p-2 md:p-5">
         <AnimeCarousel data={top10} />
       </div>
-      <Headernime Teks="Top Anime" href="Lihat Semua.." link="/allnime" />
+      <Headernime Teks="Top Anime" href="Lihat Semua.." link="/anime" />
       <div className="flex flex-col justify-between items-center w-full">
-        <Kartu Api={TopAnime} />
+        <Kartu Api={topAnime} />
       </div>
       <Headernime Teks="Rekomendasi" href="" link="" />
       <div className="flex flex-col justify-between items-center w-full">
-        <Kartu Api={fullAnime} />
+        <Kartu Api={recomAnime} />
       </div>
     </div>
   );

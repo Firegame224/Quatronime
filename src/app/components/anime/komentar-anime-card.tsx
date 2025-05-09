@@ -14,7 +14,8 @@ export default function KomentarAnimeCard({ params, data }: any) {
             {/* Gambar Profil */}
             <Image
               src={
-                item.image ||
+                item.image ?
+                item.image :
                 "https://i.pinimg.com/736x/09/7d/3c/097d3cf1d036e549d1caa10ad9268dfe.jpg"
               }
               alt={item.name}
@@ -25,7 +26,7 @@ export default function KomentarAnimeCard({ params, data }: any) {
             <section className="flex flex-col sm:w-full self-startrounded-md p-2 w-full">
               <div className="w-full flex flex-wrap items-center gap-1">
                 <h1 className="text-[12px] md:text-[15px]">
-                  @{item.name ? item.name : item.email.split("@")[0]} ●
+                  @{item.user.name ? item.user.name : item.user.email.split("@")[0]} ●
                 </h1>
                 <h1 className="text-[11px] md:text-[12px] text-gray-500">
                   {item.updateAt

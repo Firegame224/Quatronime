@@ -1,13 +1,13 @@
-import { KarakterService } from "@/app/services/karakterService";
+import { KarakterService } from "@/app/api/services/karakter.service";
 import { NextRequest, NextResponse } from "next/server";
 
 
 const karakterService = new KarakterService();
 
-export async function GET(request: NextRequest, { params }: { params: { animeId: string } }) {
+export async function GET(_request: NextRequest, { params }: { params: { animeId: string } }) {
   try {
     const characters = await karakterService.getallKarakters(Number(params.animeId));
-    return NextResponse.json({ characters }, { status: 200 });
+    return NextResponse.json({ data : characters }, { status: 200 });
   } catch (error) {
     return NextResponse.json({ message: `Error: ${error}` }, { status: 500 });
   }

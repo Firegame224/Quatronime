@@ -21,12 +21,14 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { z } from "zod";
 import UserPopover from "./user-popover";
+import { Input } from "@/components/ui/input";
 
 
 interface UsersFormProps {
   data: User;
 }
 const formSchema = z.object({
+  name: z.string().min(1).nullable(),
   role: z.string().min(1).optional(),
 });
 
@@ -35,7 +37,10 @@ type KarakterFormValues = z.infer<typeof formSchema>;
 const UsersForm: React.FC<UsersFormProps> = ({ data }) => {
   const form = useForm<KarakterFormValues>({
     resolver: zodResolver(formSchema),
-    defaultValues: data,
+    defaultValues: ({
+      name: data.name,
+      role: data.role
+    })
   });
   const params = useParams();
   const router = useRouter();
@@ -115,9 +120,22 @@ const UsersForm: React.FC<UsersFormProps> = ({ data }) => {
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="space-y-8 w-full"
+          className="space-y-8 w-full p-2"
         >
           <div className="grid gird-cols-3 gap-8">
+            <FormField
+              control={form.control}
+              name="name"
+              render={({ field }) => (
+                <FormItem className="max-w-[200px] flex flex-col gap-1">
+                  <FormLabel>Nama user</FormLabel>
+                  <FormControl>
+                    <Input value={field.value ? field.value : ""} disabled/>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
             {/* User Role */}
             <FormField
               control={form.control}

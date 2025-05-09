@@ -15,7 +15,7 @@ interface KomentarProps {
 }
 export default function KomentarAnimeInput({ params }: KomentarProps) {
   const { data: session } = useSession();
-  const [comment, setComment] = useState<string>("");
+  const [komentar, setkomentar] = useState<string>("");
   const router = useRouter();
   const [onClick, setOnClick] = useState<boolean>(false);
   const [onInput, setOninput] = useState<boolean>(false);
@@ -24,7 +24,7 @@ export default function KomentarAnimeInput({ params }: KomentarProps) {
 
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const value = e.target.value;
-    setComment(value);
+    setkomentar(value);
     if (value.length == 0) {
       setOninput(false);
     }
@@ -35,7 +35,7 @@ export default function KomentarAnimeInput({ params }: KomentarProps) {
 
    const handleClose = () => {
     setOnClick(false);
-    setComment("")
+    setkomentar("")
   }
   const handleSubmit = async (e: React.FormEvent) => {
     try {
@@ -46,7 +46,7 @@ export default function KomentarAnimeInput({ params }: KomentarProps) {
         headers: {
           "content-type": "application/json",
         },
-        body: JSON.stringify({ name: session?.user.name, comment , image: session?.user.image }),
+        body: JSON.stringify({ name: session?.user.name, komentar , image: session?.user.image }),
       });
 
       if (!response.ok) {
@@ -54,12 +54,13 @@ export default function KomentarAnimeInput({ params }: KomentarProps) {
       }
       if (response.ok) {
         toast.success("Komentar berhasil di tambahkan");
-        setComment("")
+        setkomentar("")
         setOnClick(false)
         router.refresh();
       }
     } catch (error) {
-      toast.error("Telah Terjadi error di catch handle Submit" + error);
+      console.log("error", error);
+      toast.error(`Telah Terjadi error di catch handle Submit ${error}`);
     } finally {
       setIsLoading(false);
     }
@@ -77,7 +78,8 @@ export default function KomentarAnimeInput({ params }: KomentarProps) {
         <div className="">
           <Image
             src={
-              session?.user.image ||
+              session.user.image ?
+              session?.user.image :
               "https://i.pinimg.com/736x/09/7d/3c/097d3cf1d036e549d1caa10ad9268dfe.jpg"
             }
             alt={session?.user.name || "Gambar belum Kerender"}
@@ -91,7 +93,7 @@ export default function KomentarAnimeInput({ params }: KomentarProps) {
           onFocus={() => setOnClick(true)}
           placeholder="Tulis komentar.."
           className=" border-white shadow-none ring-0 focus:ring-0"
-          value={comment}
+          value={komentar}
         />
       </div>
       {onClick ? (
@@ -135,7 +137,7 @@ export default function KomentarAnimeInput({ params }: KomentarProps) {
             onFocus={() => setOnOpen(true)}
             placeholder="Tulis komentar.."
             className=" border-white shadow-none ring-0 focus:ring-0"
-            value={comment}
+            value={komentar}
           />
         </div>
       </form>

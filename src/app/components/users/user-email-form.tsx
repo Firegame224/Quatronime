@@ -99,8 +99,13 @@ export default function FormEmailUsers() {
           className="w-full items-center bg-red-600 hover:bg-red-400 "
           type="submit"
         >
-          {isLoading ? <FaSpinner className="w-6 h-6 animate-spin" /> : <p>Kirim</p>}
-          <Send className="w-6 h-6" />
+          {isLoading ? (
+            <FaSpinner className="w-6 h-6 animate-spin" />
+          ) : (
+            <>
+              Kirim <Send className="w-6 h-6" />
+            </>
+          )}
         </Button>
       </form>
     </div>

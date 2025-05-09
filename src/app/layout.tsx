@@ -5,6 +5,7 @@ import Navbar from "./components/navbar";
 import Providers from "../../provider/session-provider";
 import NimeProviders from "../../provider/nime-provider";
 import { ToastProvider } from "../../provider/toast-provider";
+import Footer from "./components/footer";
 
 export const metadata: Metadata = {
   title: "Quatronime",
@@ -29,6 +30,7 @@ export default async function RootLayout({
           <NimeProviders />
           <Navbar />
           {children}
+          <Footer />
         </Providers>
       </body>
     </html>

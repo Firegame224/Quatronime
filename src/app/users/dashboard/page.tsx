@@ -8,6 +8,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Separator } from "@/components/ui/separator";
 import UsersFavoritesKomentar from "@/app/components/users/users-favorites-komentar";
+import { fetcher } from "@/libs/fetcher";
 
 export default async function Dashboard() {
   const session = await AuthSession();
@@ -16,22 +17,8 @@ export default async function Dashboard() {
       id: session?.id,
     },
   });
-  const response = await prisma.collection.findMany({
-    where: {
-      userId: session?.id,
-    },
-    include: {
-      anime: true,
-    },
-  });
-  const favorite = response?.map((item) => item.anime);
-  const komentar = await prisma.komentar.findMany({
-    where : {
-      userId: session?.id
-    },include : {
-      anime : true
-    }
-  })
+  const { data : collections } = await fetcher({port : `${process.env.NEXT_PUBLIC_API_URL}/api/users/${session?.id}/collections`});
+  const {data: komentar} = await fetcher({port : `${process.env.NEXT_PUBLIC_API_URL}/api/users/${session?.id}/komentar`});
   return (
     <div className="w-full min-h-screen flex">
       <div className="w-full items-center flex md:flex justify-center flex-col gap-2 p-4 rounded-lg h-full">
@@ -58,7 +45,7 @@ export default async function Dashboard() {
         <SettingUsersForm data={userData as any} />
         <Separator className="mt-2 mb-0 block md:hidden" />
         <section className="w-full h-full md:hidden flex">
-          <UsersFavoritesKomentar favorite={favorite} komentar={komentar}/>
+          <UsersFavoritesKomentar favorite={collections} komentar={komentar}/>
         </section>
       </div>
     </div>

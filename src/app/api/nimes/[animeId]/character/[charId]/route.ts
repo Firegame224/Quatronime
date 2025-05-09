@@ -1,6 +1,6 @@
 import prisma from "@/libs/prisma";
 import { NextRequest, NextResponse } from "next/server";
-import { KarakterService } from "@/app/services/karakterService";
+import { KarakterService } from "@/app/api/services/karakter.service";
 
 interface UpdateCharProps {
   params: { animeId: number; charId: string };

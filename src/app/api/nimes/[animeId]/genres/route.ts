@@ -1,6 +1,7 @@
-import prisma from "@/libs/prisma";
+import { AnimeService } from "@/app/api/services/anime.service";
 import { NextRequest, NextResponse } from "next/server";
 
+const animeServices = new AnimeService();
 interface GenresProps {
   params: { animeId: string };
 }
@@ -16,17 +17,11 @@ export async function PATCH(request: NextRequest, { params }: GenresProps) {
     if (!genres) {
       return NextResponse.json("Harap pilih Genre", { status: 400 });
     }
-    const anime = await prisma.anime2.update({
-      where: {
-        id: animeId,
-      },
-      data: {
-        genres,
-      },
-    });
+    
+    const addGenres = await animeServices.addGenres({ id: animeId, genre: genres });
 
     return NextResponse.json(
-      { data: anime, message: "Genre Berhasil di tambahkan" },
+      { data: addGenres, message: "Genre Berhasil di tambahkan" },
       { status: 201 }
     );
   } catch (error) {
@@ -37,24 +32,22 @@ export async function PATCH(request: NextRequest, { params }: GenresProps) {
   }
 }
 
-export async function DELETE(request: NextRequest, { params }: GenresProps) {
+export async function DELETE(_request: NextRequest, { params }: GenresProps) {
   try {
     const animeId = Number(params.animeId);
 
-    if (!animeId) {
-      return NextResponse.json("Anime Tidak Ditemukan", { status: 404 });
+    const existingAnime = await animeServices.getAnimeById({ id: animeId });
+    
+    if (!existingAnime) {
+      return NextResponse.json(
+        { message: "Data Anime Belum ada / Tidak Di temukan" },
+        { status: 404 }
+      );
     }
-
-    const anime = await prisma.anime2.update({
-      where: {
-        id: animeId,
-      },data : {
-        genres : [],
-      }
-    });
+    const deletedGenres = await animeServices.deleteGenres({ id: animeId });
 
     return NextResponse.json(
-      { data: anime, message: "Genre Berhasil di Hapus" },
+      { data: deletedGenres, message: "Genre Berhasil di Hapus" },
       { status: 200 }
     );
   } catch (error) {

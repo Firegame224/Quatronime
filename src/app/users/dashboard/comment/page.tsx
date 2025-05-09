@@ -1,5 +1,5 @@
 import UsersKomentarCard from "@/app/components/users/users-komentar-card";
-import prisma from "@/libs/prisma";
+import { fetcher } from "@/libs/fetcher";
 import { AuthSession } from "@/libs/session";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
@@ -7,15 +7,7 @@ import React from "react";
 
 export default async function UserKomentarPage() {
   const session = await AuthSession();
-  const response = await prisma.komentar.findMany({
-    where: {
-      userId: session?.id,
-    },
-    include: {
-      anime: true,
-    },
-  });
-  const komentar = response.map((item) => item);
+  const {data : komentar = []} = await fetcher({port : `${process.env.NEXT_PUBLIC_API_URL}/api/users/${session?.id}/komentar`});
 
   if (komentar.length === 0) {
     return (

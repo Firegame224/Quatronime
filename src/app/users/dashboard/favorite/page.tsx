@@ -1,28 +1,19 @@
-import Kartu from "@/app/components/anime/card";
-import prisma from "@/libs/prisma";
+import CollectionsCards from "@/app/components/users/user-favorites-card";
+import { fetcher } from "@/libs/fetcher";
 import { AuthSession } from "@/libs/session";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 
 export default async function UsersFavoritePage() {
   const session = await AuthSession();
-  const favNime = await prisma.collection.findMany({
-    where: {
-      userId: session?.id,
-    },
-    include: {
-      anime: true,
-    },
-  });
-  const Anime = favNime?.map((item) => item.anime);
-  console.log(favNime, "ini adalah data favorite");
-
-  if (Anime.length === 0) {
+  const { data : collections } = await fetcher({ port: `${process.env.NEXT_PUBLIC_API_URL}/api/users/${session?.id}/collections` });
+  console.log(collections);
+  if (collections.length === 0) {
     return (
       <div className="w-full flex flex-col min-h-screen p-5">
       <div className="w-full justify-between flex">
         <div className="w-1/2 flex flex-col">
-          <p className="text-xl text-white font-semibold">Favorite ( {Anime.length} )</p>
+          <p className="text-xl text-white font-semibold">Favorite ( {collections.length} )</p>
           <p className="text-sm text-muted-foreground">Ini adalah semua anime yang telah kamu tambahkan ke favorit</p>
         </div>
         <Link
@@ -43,7 +34,7 @@ export default async function UsersFavoritePage() {
     <div className="w-full flex flex-col min-h-screen p-5">
       <div className="w-full justify-between flex">
         <div className="w-1/2 flex flex-col">
-          <p className="text-xl text-white font-semibold">Favorite ( {Anime.length} )</p>
+          <p className="text-xl text-white font-semibold">Favorite ( {collections.length} )</p>
           <p className="text-sm text-muted-foreground">Ini adalah semua anime yang telah kamu tambahkan ke favorit</p>
         </div>
         <Link
@@ -54,9 +45,7 @@ export default async function UsersFavoritePage() {
           Kembali
         </Link>
       </div>
-      <div className="flex flex-col justify-between items-center w-full">
-        <Kartu Api={Anime} />
-      </div>
+        <CollectionsCards Api={collections} />
     </div>
   );
 }

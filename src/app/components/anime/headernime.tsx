@@ -9,7 +9,7 @@ interface Params {
 
 export default function Headernime({ Teks, href , link }: Params) {
   return (
-    <div className="justify-between items-center flex text-sm md:text-xl font-bold my-5 mx-5 md:mx-28">
+    <div className="justify-between items-center flex text-sm md:text-xl font-bold my-5 mx-5">
       <h1 className="text-[#9e1313] stroke-light-400 stroke-2">{Teks}</h1>
       <Link
         href={link}

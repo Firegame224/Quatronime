@@ -17,10 +17,10 @@ interface KartuProps {
   aired: string | null;
 }
 
-export default function Kartu({ Api }: { Api: KartuProps[] }) {
+export default function CollectionsCards({ Api = [] }: { Api: KartuProps[] }) {
   if (Api.length === 0) {
     return (
-      <section className="grid grid-cols-3 justify-center items-center md:gap-9 md:grid-cols-5 lg:grid-cols-7 gap-2">
+      <section className="grid grid-cols-3 justify-center items-center md:gap-9 md:grid-cols-5 lg:grid-cols-5 gap-2">
         <div className="flex flex-col justify-center items-center p-1 animate-pulse">
           <div className="bg-gray-600 h-44 w-full sm:h-60 rounded-lg shadow-md"></div>
           <div className="mt-1 h-4 sm:h-6 w-[55%] self-start bg-gray-600 rounded"></div>
@@ -85,8 +85,8 @@ export default function Kartu({ Api }: { Api: KartuProps[] }) {
     );
   }
   return (
-    <div className="grid grid-cols-3 justify-center items-center sm:grid-cols-4 md:gap-4 md:grid-cols-5 lg:grid-cols-7 ">
-      {Api.map((anime: any) => {
+    <div className="grid grid-cols-3 justify-center items-center sm:grid-cols-4 md:gap-4 md:grid-cols-5 lg:grid-cols-5 ">
+      {Api?.map((anime: any) => {
         return (
           <div key={anime.id}>
             <Link

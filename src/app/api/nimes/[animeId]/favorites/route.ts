@@ -1,3 +1,5 @@
+import { AnimeService } from "@/app/api/services/anime.service";
+import { CollectionService } from "@/app/api/services/collection.service";
 import prisma from "@/libs/prisma";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -5,6 +7,23 @@ interface FavoritesProps {
   params: {
     animeId: string;
   };
+}
+
+const collectionServices = new CollectionService();
+const animeServices = new AnimeService();
+export async function GET(_request: NextRequest, {params} : FavoritesProps) {
+  try {
+    const animeId = Number(params.animeId);
+    const favorites = await collectionServices.getCollectionByAnimeId({animeId});
+
+    if (favorites.length === 0) {
+      return NextResponse.json({message : "Favorites not found"},{status : 404})
+    }
+
+    return NextResponse.json({data : favorites},{status : 200})
+  } catch (error) {
+    return NextResponse.json({message : `Error : ${error}`},{status : 500})
+  }
 }
 export async function PATCH(request: NextRequest, { params }: FavoritesProps) {
   try {
@@ -30,58 +49,45 @@ export async function PATCH(request: NextRequest, { params }: FavoritesProps) {
       );
     }
     const { userId } = body;
-    const ExitingUser = await prisma.user.findUnique({
+    const ExistingUser = await prisma.user.findUnique({
       where: {
         id: userId,
       },
     });
 
-    if (!ExitingUser) {
+    if (!ExistingUser) {
       return NextResponse.json(
         { message: "User tidak ditemukan" },
         { status: 404 }
       );
     }
-    const ExitingFavorites = await prisma.collection.findUnique({
-      where: {
-        userId_animeId: {
-          userId: userId,
-          animeId: animeId,
-        },
-      },
-    });
 
-    if (ExitingFavorites) {
+    const ExistingFavorites =
+      await collectionServices.getCollectionByAnimeIdAndUserId({
+        userId: userId,
+        animeId: animeId,
+      });
+
+    if (ExistingFavorites) {
       return NextResponse.json(
         { message: "Anime ini sudah di Collection" },
         { status: 400 }
       );
     }
 
-    const favorite = await prisma.collection.create({
-      data: {
-        userId: userId,
-        animeId: animeId,
-      },
+    const addToFavorite = await collectionServices.addCollection({
+      userId,
+      animeId,
     });
 
-    const updatedAnime = await prisma.anime2.update({
-      where: {
-        id: animeId,
-      },
-      data: {
-        favorites: {
-          increment: 1,
-        },
-      },
+    const updatedAnime = await animeServices.addFavorites({
+      id: animeId,
+      userId,
     });
 
     return NextResponse.json(
       {
-        data: {
-          favorite,
-          updatedAnime,
-        },
+        data: { addToFavorite, ipdate: updatedAnime },
         message: "Favorites telah di tambahkan",
       },
       { status: 200 }
@@ -106,11 +112,7 @@ export async function DELETE(request: NextRequest, { params }: FavoritesProps) {
       );
     }
 
-    const Anime = await prisma.anime2.findUnique({
-      where: {
-        id: animeId,
-      },
-    });
+    const Anime = await animeServices.getAnimeById({ id: animeId });
 
     if (!Anime) {
       return NextResponse.json(
@@ -121,56 +123,42 @@ export async function DELETE(request: NextRequest, { params }: FavoritesProps) {
 
     const { userId } = body;
 
-    const ExitingUser = await prisma.user.findUnique({
+    const ExistingUser = await prisma.user.findUnique({
       where: {
         id: userId,
       },
     });
 
-    if (!ExitingUser) {
+    if (!ExistingUser) {
       return NextResponse.json(
         { message: "User tidak ditemukan" },
         { status: 404 }
       );
     }
 
-    const ExitingFavoritesDeleted = await prisma.collection.findUnique({
-      where: {
-        userId_animeId: {
-          userId: userId,
-          animeId: animeId,
-        },
-      },
+    const ExistingFavoritesDeleted = await collectionServices.getCollectionByAnimeIdAndUserId({
+      userId,
+      animeId,
     })
-    if (!ExitingFavoritesDeleted) {
+    if (!ExistingFavoritesDeleted) {
       return NextResponse.json(
         { message: "Anime ini belum di Collection" },
         { status: 400 }
       );
     }
-    const DeletedFavorites = await prisma.collection.delete({
-      where: {
-        userId_animeId: {
-          userId: userId,
-          animeId: animeId,
-        },
-      },
-    });
+    const DeleteFavorites = await collectionServices.deleteCollection({
+      userId,
+      animeId,
+    })
 
-    const UpdatedFavorites = await prisma.anime2.update({
-      where: {
-        id: animeId,
-      },
-      data: {
-        favorites: {
-          decrement: 1,
-        },
-      },
+    const deletedFavorites = await animeServices.deleteFavorites({
+      id: animeId,
+      userId,
     });
 
     return NextResponse.json(
       {
-        data: { DeletedFavorites, updated: UpdatedFavorites },
+        data: { DeleteFavorites, updated: deletedFavorites },
         message: "Favorites telah di hapus",
       },
       { status: 200 }
