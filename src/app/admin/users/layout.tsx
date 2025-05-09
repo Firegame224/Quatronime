@@ -16,7 +16,7 @@ export default async function Dashboard({
   }
 
   return (
-    <div className="admin bg-[#121212] text-white min-h-screen">
+    <div className="bg-white dark:text-white text-black min-h-screen">
       {children}
     </div>
   );

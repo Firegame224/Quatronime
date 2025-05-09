@@ -1,8 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
-import prisma from "@/libs/prisma";
+import { AnimeService } from "@/app/api/services/anime.service";
 
-
-
+const animeServices = new AnimeService();
 
 export async function GET(
   _request: NextRequest,
@@ -10,14 +9,7 @@ export async function GET(
 ) {
   try {
     const title = params.animeId;
-    const anime = await prisma.anime2.findMany({
-      where: {
-        title: {
-          contains: title,
-          mode: "insensitive",
-        },
-      },
-    });
+    const anime = await animeServices.getAnimeByTitle({ title });
     if (!anime) {
       return NextResponse.json(
         { message: "Data Anime Belum Ada / Tidak Ditemukan" },

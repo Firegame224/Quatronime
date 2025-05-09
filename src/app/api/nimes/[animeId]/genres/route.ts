@@ -5,6 +5,16 @@ const animeServices = new AnimeService();
 interface GenresProps {
   params: { animeId: string };
 }
+
+export async function GET(_request: NextRequest, { params }: GenresProps) {
+  try {
+    const genre = params.animeId;
+    const genres = await animeServices.getAnimeByGenre({genre});
+    return NextResponse.json({ data: genres }, { status: 200 });
+  } catch (error) {
+    return NextResponse.json({ message: `Error : ${error}` }, { status: 500 });
+  }
+}
 export async function PATCH(request: NextRequest, { params }: GenresProps) {
   try {
     const animeId = Number(params.animeId);

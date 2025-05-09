@@ -48,7 +48,7 @@ export default function AnimeKomentarDelete({ data, params }: KomentarProps) {
   return (
     <>
       <AlertModal isOpen={isOpen} loading={isLoading} onClose={() => setIsOpen(false)} onConfirm={handleDelete} />
-      {session && session.user.name === data?.name ? (
+      {session && session.user.name === data?.name || session?.user.role === "ADMIN" ? (
         <Button
           onClick={()=> setIsOpen(true)}
           type="submit"

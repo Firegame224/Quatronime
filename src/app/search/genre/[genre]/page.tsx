@@ -4,21 +4,21 @@ import ButtonEmail from "@/app/components/button/button-email";
 import { fetcher } from "@/libs/fetcher";
 import Image from "next/image";
 
-interface AnimeSearchPops {
-  params: { anime: string };
+interface GenreSearchPops {
+  params: { genre: string };
 }
-export default async function SearchPage({ params }: AnimeSearchPops) {
-  const id = params.anime;
-  const decodedUrl = decodeURIComponent(id);
+export default async function SearchPage({ params }: GenreSearchPops) {
+  const genre = params.genre;
+  const decode = decodeURIComponent(genre);
   const { data: Anime = [] } = await fetcher({
-    port: `${process.env.NEXT_PUBLIC_API_URL}/api/nimes/${decodedUrl}/search`,
+    port: `${process.env.NEXT_PUBLIC_API_URL}/api/nimes/${decode}/genres`,
   });
 
   if (Anime.length === 0) {
     return (
       <>
         <Headernime
-          Teks={`Hasil pencarian ${decodedUrl}`}
+          Teks={`Hasil pencarian ${decode}`}
           href={"Kembali"}
           link={`/`}
         />
@@ -41,7 +41,7 @@ export default async function SearchPage({ params }: AnimeSearchPops) {
   return (
     <div className="min-h-screen">
       <Headernime
-        Teks={`Hasil pencarian ${decodedUrl}`}
+        Teks={`Hasil pencarian ${decode}`}
         href={"Kembali"}
         link={`/`}
       />

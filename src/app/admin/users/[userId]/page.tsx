@@ -25,7 +25,7 @@ export default async function UserSettingPage({ params }: UsersPageProps) {
     port: `${process.env.NEXT_PUBLIC_API_URL}/api/users/${user?.id}/komentar`,
   });
   return (
-    <div className="w-full min-h-screen items-center p-5 gap-5">
+    <div className="w-full min-h-screen items-center p-5 gap-5 bg-[#121212] text-white">
       <div className="w-full flex justify-between items-center">
         <Link
           href="/admin/users"

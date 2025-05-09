@@ -12,14 +12,9 @@ export default function Footer() {
         <footer
           className={`bg-[#9e1313] w-full mt-10 py-8 text-center text-sm text-white h-full`}
         >
-          <p>
+          <p className="text-[12px] md:text-lg">
             &copy; {new Date().getFullYear()} Quatronime. Dibuat dengan penuh ❤️
             oleh Kelompok 8
-          </p>
-          <p className="mt-2">
-            <a href="mailto:quatronime@gmail.com" target="_blank" className="hover:underline">
-              Kontak
-            </a>
           </p>
         </footer>
       )}

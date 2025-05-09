@@ -52,6 +52,25 @@ export class AnimeService {
         }
       })
   }
+  public async getAnimeByTitle({ title }: { title: string }) {
+    return await prisma.anime2.findMany({
+      where: {
+        title: {
+          contains: title,
+          mode: "insensitive",
+        },
+      },
+    });
+  }
+  public async getAnimeByGenre({ genre }: { genre: string }) {
+    return await prisma.anime2.findMany({
+      where: {
+        genres: {
+          has: genre,
+        },
+      },
+    });
+  }
   public async createAnime(data: { title: string }) {
     return await prisma.anime2.create({
       data: {
