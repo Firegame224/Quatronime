@@ -12,8 +12,8 @@ export default async function NavbarAdmin() {
     },
   });
   return (
-    <nav className="border border-black px-5">
-      <div className="h-32 md:h-20 flex flex-col md:flex-row md:flex justify-center md:justify-between gap-4 items-center">
+    <nav className="border border-black px-5 py-5">
+      <div className="h-32 md:h-24 flex flex-col md:flex-row md:flex justify-center md:justify-between gap-4 items-center">
         <AnimeSwitcher items={animes} className="md:w-1/3"/>
         <MainNavAdmin className="mx-6 items-center" />
         <div className="flex ml-auto items-center space-x-4 w-full justify-center md:justify-end">

@@ -52,11 +52,10 @@ export class KomentarService {
     });
     return create;
   }
-  public async deleteKomentar({ id, name }: { id: string; name: string }) {
+  public async deleteKomentar({ id }: { id: string;}) {
     return await prisma.komentar.delete({
       where: {
         id,
-        name,
       },
     });
   }

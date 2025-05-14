@@ -26,8 +26,7 @@ export default function AnimeKomentarDelete({ data, params }: KomentarProps) {
         method: "DELETE",
         headers: {
           "content-type": "application/json",
-        },
-        body: JSON.stringify({ name: session?.user.name }),
+        }
       });
       if (!response.ok) {
         toast.error("gagal menghapus komentar");

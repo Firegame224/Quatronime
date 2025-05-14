@@ -131,7 +131,7 @@ export default async function DeskAnimePage({
         <section className="p-5 mt-12">
           <h2 className="text-2xl font-bold my-4 text-[#fc0b03]">Comments</h2>
           <div className="flex w-full">
-            <KomentarAnime params={animeId} data={komentar} />
+            <KomentarAnime params={Number(animeId)} data={komentar} />
           </div>
         </section>
     </div>

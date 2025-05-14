@@ -1,16 +1,14 @@
 import { KomentarService } from "@/app/api/services/komentar.service";
-import prisma from "@/libs/prisma";
 import { NextRequest, NextResponse } from "next/server";
 
 const komentarService = new KomentarService();
+
 export async function DELETE(
-  request: NextRequest,
+  _request: NextRequest,
   { params }: { params: { id: string } }
 ) {
   try {
-    const CommandId = await params.id;
-    const body = await request.json();
-    const { name } = body;
+    const {id :CommandId} = await params;
 
     if (!CommandId) {
       return NextResponse.json(
@@ -18,22 +16,9 @@ export async function DELETE(
         { status: 404 }
       );
     }
-    const existingUser = await prisma.user.findFirst({
-      where: {
-        name,
-      },
-    });
-
-    if (name !== existingUser?.name) {
-      return NextResponse.json(
-        { message: "User tidak ditemukan " + name + "=" + existingUser?.name },
-        { status: 404 }
-      );
-    }
 
     const deletedKomentar = await komentarService.deleteKomentar({
       id: CommandId,
-      name,
     });
 
     return NextResponse.json(
