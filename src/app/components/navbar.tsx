@@ -15,9 +15,9 @@ export default function Navbar() {
       pathname.startsWith("/admin") ||
       pathname.startsWith("/anime") ? null : (
         <nav className="bg-[#9e1313] border-gray-200 dark:bg-gray-900">
-          <div className="w-full  flex flex-wrap items-center justify-between mx-auto p-4">
+          <div className="w-full flex flex-wrap items-center justify-between mx-auto p-4 md:px-20 gap-2">
             <div className="flex items-center gap-4">
-              <Image src={"/img/logo.png"} alt="logo" width={50} height={50} />
+              <Image src={"/img/logo.png"} alt="logo" width={50} height={50} className="border border-white rounded-full"/>
               <span className="self-center text-2xl font-semibold whitespace-nowrap text-white">
                 Quatronime
               </span>

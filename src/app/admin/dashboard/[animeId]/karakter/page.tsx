@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { KarakterClient } from "./components/client";
-import { KarakterColumn } from "./components/column";
+import { KarakterClient } from "../../../../components/admin/anime/character/create/client";
+import { KarakterColumn } from "../../../../components/admin/anime/character/create/column";
 import { format } from "date-fns";
 import { fetcher } from "@/libs/fetcher";
 

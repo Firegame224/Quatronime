@@ -24,7 +24,7 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
-      <body className={isAdminRoute ? "bg-white" : "bg-[#121212]"}>
+      <body className={isAdminRoute ? "bg-white" : "bg-[#121212] min-h-screen"}>
         <Providers>
           <ToastProvider />
           <NimeProviders />

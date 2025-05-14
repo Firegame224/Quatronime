@@ -44,9 +44,7 @@ export default function AnimePage() {
         >
           Prev
         </Button>
-
         <span className="text-lg">Page {page}</span>
-
         <Button
           onClick={() => setPage(page + 1)}
           disabled={page * limit >= total}

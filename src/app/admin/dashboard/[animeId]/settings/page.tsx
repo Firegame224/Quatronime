@@ -1,5 +1,5 @@
 import React from "react";
-import InformationForm from "./components/settings-form";
+import InformationForm from "../../../../components/admin/anime/settings/settings-form";
 import { AuthSession } from "@/libs/session";
 import { redirect } from "next/navigation";
 import { fetcher } from "@/libs/fetcher";

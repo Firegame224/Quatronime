@@ -1,4 +1,4 @@
-import GenresForm from "./components/genres-form";
+import GenresForm from "../../../../components/admin/anime/genre/genres-form";
 import { fetcher } from "@/libs/fetcher";
 
 interface genresPageProps {

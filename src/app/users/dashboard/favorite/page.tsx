@@ -7,7 +7,6 @@ import Link from "next/link";
 export default async function UsersFavoritePage() {
   const session = await AuthSession();
   const { data : collections } = await fetcher({ port: `${process.env.NEXT_PUBLIC_API_URL}/api/users/${session?.id}/collections` });
-  console.log(collections);
   if (collections.length === 0) {
     return (
       <div className="w-full flex flex-col min-h-screen p-5">
@@ -45,7 +44,7 @@ export default async function UsersFavoritePage() {
           Kembali
         </Link>
       </div>
-        <CollectionsCards Api={collections} />
+        <CollectionsCards Api={collections}/>
     </div>
   );
 }

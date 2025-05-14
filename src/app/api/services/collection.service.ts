@@ -13,12 +13,10 @@ export class CollectionService {
         });
     }
     public async getCollectionByAnimeIdAndUserId({ userId, animeId }: { userId: string; animeId: number }) {
-        return await prisma.collection.findUnique({
+        return await prisma.collection.findFirst({
             where: {
-                userId_animeId: {
-                    userId,
-                    animeId,
-                },
+                userId,
+                animeId
             },include :{
                 anime : true,
                 user : true

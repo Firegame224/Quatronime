@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import prisma from "@/libs/prisma";
-import { UsersClient } from "./components/client";
+import { UsersClient } from "../../components/admin/user/client";
 import {format} from "date-fns"
-import { UserColumn } from "./components/column";
+import { UserColumn } from "../../components/admin/user/column";
 
 const KarakterPage = async () => {
   const chara = await prisma.user.findMany({})

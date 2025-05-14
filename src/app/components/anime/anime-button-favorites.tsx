@@ -10,11 +10,11 @@ import toast from "react-hot-toast";
 
 
 export default function AnimeButtonFavorites({
-  params,
+  animeId,
   data,
 }: {
-  params: number;
-  data: any[];
+  animeId: number;
+  data: any;
 }) {
   const { data: session } = useSession();
   const router = useRouter();
@@ -26,7 +26,7 @@ export default function AnimeButtonFavorites({
   const handleAddFavorite = async () => {
     try {
       setIsLoading(true);
-      const response = await fetch(`/api/nimes/${params}/favorites` ,{
+      const response = await fetch(`/api/nimes/${animeId}/favorites` ,{
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
@@ -49,7 +49,7 @@ export default function AnimeButtonFavorites({
   const handleDeleteFavorite = async () => {
     try {
       setIsLoading(true);
-      const response = await fetch(`/api/nimes/${params}/favorites` ,{
+      const response = await fetch(`/api/nimes/${animeId}/favorites` ,{
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -69,7 +69,7 @@ export default function AnimeButtonFavorites({
       setIsLoading(false);
     }
   };
-  console.log(data + " ini adalah id user di button favorite");
+
   return (
     <>
       <AlertAnime
@@ -93,7 +93,7 @@ export default function AnimeButtonFavorites({
         </Button>
       ) : (
         <>
-          {data.length > 0 ? (
+          {data ? (
             <Button
               className="group text-[#fc0b03] border-2 border-[#fc0b03] justify-center shadow-red-500/50 flex transition absolute bottom-1 right-4 items-center p-0 rounded-full"
               size={"icon"}

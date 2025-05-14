@@ -18,7 +18,7 @@ interface KartuProps {
 }
 
 export default function CollectionsCards({ Api = [] }: { Api: KartuProps[] }) {
-  if (Api.length === 0) {
+  if (Api?.length === 0) {
     return (
       <section className="grid grid-cols-3 justify-center items-center md:gap-9 md:grid-cols-5 lg:grid-cols-5 gap-2">
         <div className="flex flex-col justify-center items-center p-1 animate-pulse">

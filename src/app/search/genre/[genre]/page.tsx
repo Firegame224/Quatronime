@@ -18,7 +18,7 @@ export default async function SearchPage({ params }: GenreSearchPops) {
     return (
       <>
         <Headernime
-          Teks={`Hasil pencarian ${decode}`}
+          Teks={`Hasil pencarian untuk genre ${decode}`}
           href={"Kembali"}
           link={`/`}
         />

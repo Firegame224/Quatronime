@@ -1,6 +1,6 @@
 import prisma from "@/libs/prisma";
 import React from "react";
-import KarakterForm from "./components/karakter-form";
+import KarakterForm from "../../../../../components/admin/anime/character/update/karakter-form";
 
 interface KarakterProps {
   params : {charId : string}

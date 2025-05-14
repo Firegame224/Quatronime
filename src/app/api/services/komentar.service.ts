@@ -60,4 +60,12 @@ export class KomentarService {
       },
     });
   }
+  public async deleteKomentarByUserId({ userId , komenId} : {userId : string , komenId : string}) {
+    return await prisma.komentar.delete({
+      where : {
+        userId,
+        id : komenId
+      }
+    })
+  }
 }

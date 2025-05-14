@@ -9,14 +9,15 @@ import { Badge } from "@/components/ui/badge";
 import KomentarAnime from "@/app/components/anime/komentar-anime";
 import { AuthSession } from "@/libs/session";
 import AnimeButtonFavorites from "@/app/components/anime/anime-button-favorites";
-import { fetcher } from "@/libs/fetcher";
+import { fetcher, fetchOne } from "@/libs/fetcher";
+import Link from "next/link";
 
 export default async function DeskAnimePage({
   params,
 }: {
-  params: { id: string };
+  params: { id: number };
 }) {
-  const animeId = Number(params.id);
+  const { id: animeId } = await params;
   const session = await AuthSession();
 
   // Ambil data anime dari database
@@ -34,19 +35,10 @@ export default async function DeskAnimePage({
   });
 
   // Ambil data collection
-  const {data: Collection} = await fetcher({port : `${process.env.NEXT_PUBLIC_API_URL}/api/users/${session?.id}/collections`});
+  const Collection = await fetchOne({
+    port: `${process.env.NEXT_PUBLIC_API_URL}/api/users/${session?.id}/collections/${animeId}`,
+  });
 
-  if (!chara) {
-    return;
-  }
-
-  if (!nime) {
-    return (
-      <div className="w-full text-white p-8 h-screen flex items-center justify-center">
-        <h1 className="text-2xl font-semibold">Anime not found</h1>
-      </div>
-    );
-  }
   const Box = [
     {
       p1: "Score",
@@ -65,19 +57,20 @@ export default async function DeskAnimePage({
       p2: nime.type,
     },
   ];
+
   return (
-    <div className="max-w-screen min-h-screen text-white">
+    <div className="max-w-screen min-h-screen text-white flex flex-col">
       <NavbarAnime />
       <div className="md:flex gap-5 w-full">
         <div className="flex flex-col items-center h-full md:h-screen">
-          <section className=" h-full w-full md:w-96 relative">
+          <section className=" h-full w-full md:w-full relative">
             <Image
               src={
                 nime.imageUrl ||
                 "https://img.freepik.com/premium-vector/default-image-icon-vector-missing-picture-page-website-design-mobile-app-no-photo-available_87543-11093.jpg"
               }
               alt={nime.title}
-              className="w-full h-full rounded-md"
+              className="w-full h-full rounded-md object-cover"
               width={200}
               height={200}
             />
@@ -85,7 +78,7 @@ export default async function DeskAnimePage({
               <Calendar className="w-5 h-5 ml-2" />
               {nime.aired}
             </Label>
-            <AnimeButtonFavorites params={animeId} data={Collection} />
+            <AnimeButtonFavorites animeId={Number(animeId)} data={Collection} />
           </section>
           <div className="mt-3 flex justify-center gap-3 w-full p-2">
             {Box.map((bok, index) => {
@@ -104,7 +97,7 @@ export default async function DeskAnimePage({
             {nime.genres.map((genre: string, index: number) => {
               return (
                 <Badge className="p-3 bg-gray-700 " key={index}>
-                  #{genre}
+                  <Link href={`/search/genre/${genre}`}>#{genre}</Link>
                 </Badge>
               );
             })}
@@ -124,21 +117,23 @@ export default async function DeskAnimePage({
         </section>
       </div>
       {/** Karakter Section **/}
-      <section className="p-5 mt-12 relative">
-        <h2 className="text-2xl font-bold my-4 text-[#fc0b03]">Characters</h2>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          {chara.map((char: any) => (
-            <CharacterCard key={char.id} character={char} />
-          ))}
-        </div>
-      </section>
+      {chara.length === 0 ? null : (
+        <section className="p-5 mt-12 md:mt-32">
+          <h2 className="text-2xl font-bold my-4 text-[#fc0b03]">Characters</h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {chara.map((char: any) => (
+              <CharacterCard key={char.id} character={char} />
+            ))}
+          </div>
+        </section>
+      )}
       {/** Komentar Section **/}
-      <section className="p-5 mt-12">
-        <h2 className="text-2xl font-bold my-4 text-[#fc0b03]">Comments</h2>
-        <div className="flex w-full">
-          <KomentarAnime params={animeId} data={komentar} />
-        </div>
-      </section>
+        <section className="p-5 mt-12">
+          <h2 className="text-2xl font-bold my-4 text-[#fc0b03]">Comments</h2>
+          <div className="flex w-full">
+            <KomentarAnime params={animeId} data={komentar} />
+          </div>
+        </section>
     </div>
   );
 }

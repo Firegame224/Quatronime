@@ -14,10 +14,10 @@ export default function LogOutbutton() {
       : Session?.user.name || "Your Name";
   const role = Session?.user.role == "USER" ? "USER" : "ADMIN";
   return (
-    <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-revers">
+    <div className="flex md:order-2 md:space-x-0 rtl:space-x-revers">
       <Link
         href={href}
-        className="text-white bg-red-700 border-white rounded p-2 flex gap-2 items-center justify-center hover:bg-white hover:text-red-700 transition ease-in duration-500"
+        className="text-white bg-red-700 border-white border rounded p-2 flex gap-2 items-center justify-center hover:bg-white hover:text-red-700 transition ease-in duration-500"
       >
         <div className="w-full h-auto flex flex-col justify-center mr-3">
           <p className="text-[10px]">{role}</p>

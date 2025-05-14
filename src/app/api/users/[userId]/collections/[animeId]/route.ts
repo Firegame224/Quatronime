@@ -4,16 +4,15 @@ import { NextRequest, NextResponse } from "next/server";
 interface CollectionProps {
     params : {
         userId : string;
-        animeId : string;
+        animeId : number;
     }
 }
 
 const collectionServices = new CollectionService();
 export async function GET(_request : NextRequest, {params} : CollectionProps) {
     try {
-        const userId = params.userId;
-        const animeId = Number(params.animeId);
-        const collection = await collectionServices.getCollectionByAnimeIdAndUserId({userId,animeId});
+        const {userId, animeId} = await params;
+        const collection = await collectionServices.getCollectionByAnimeIdAndUserId({userId, animeId : Number(animeId)});
         if (!collection) {
             return NextResponse.json({message : "Collection not found"},{status : 404})
         }

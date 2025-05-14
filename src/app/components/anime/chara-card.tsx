@@ -4,6 +4,7 @@ import Image from "next/image";
 import CharacterSkeleton from "./character-skeleton";
 import { useEffect, useState } from "react";
 
+
 export default function CharacterCard({ character }: any) {
   const [loading , setLoading] = useState(true);
   useEffect(() => {
