@@ -2,34 +2,40 @@
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { Bookmark, LogOut, User } from "lucide-react";
+import { fetchOne } from "@/libs/fetcher";
+import { User } from "@prisma/client";
+import { Bookmark, LogOut, UserIcon } from "lucide-react";
 import { signOut, useSession } from "next-auth/react";
 import { usePathname, useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import { FaComment } from "react-icons/fa";
 
 export default function UserNavbarDash() {
-  const { data: session } = useSession();
-  const pathname = usePathname()
+  const pathname = usePathname();
   const router = useRouter();
+  const {data : session} = useSession()
+  const [user , setUser] = useState<User>()
+  useEffect(() => {
+    const getUser = async () => {
+      const data = await fetchOne({port :`${process.env.NEXT_PUBLIC_API_URL}/api/users/${session?.user.id}`})
+
+      setUser(data)
+    }
+    getUser()
+  },[session?.user.id])
   return (
     <>
       <nav className="w-full p-5 bg-red-700 shadow-lg h-full rounded-r-lg hidden md:block">
         {/* Profil Admin */}
         <div className="flex items-center gap-4 text-white">
           <Avatar className="w-14 h-14 border-2 border-white shadow-md hover:scale-105 transition-transform">
-            <AvatarImage src={session?.user.image} alt="User Avatar" />
-            <AvatarFallback>
-              {session?.user.name?.charAt(0) || "?"}
-            </AvatarFallback>
+            <AvatarImage src={user?.image} alt="User Avatar" />
+            <AvatarFallback>{user?.name?.charAt(0) || "?"}</AvatarFallback>
           </Avatar>
 
           <div>
-            <p className="text-sm font-light text-gray-200">
-              {session?.user.role || "Admin"}
-            </p>
-            <h1 className="text-lg font-semibold">
-              {session?.user.name || session?.user.email}
-            </h1>
+            <p className="text-sm font-light text-gray-200">{user?.role}</p>
+            <h1 className="text-lg font-semibold">{user?.name || user?.email}</h1>
           </div>
         </div>
 
@@ -42,7 +48,7 @@ export default function UserNavbarDash() {
             className={`${pathname === "/users/dashboard" ? "bg-red-400" : "bg-transparent"} hover:bg-red-400 shadow-none flex items-center gap-2 justify-start`}
             onClick={() => router.push("/users/dashboard")}
           >
-            <User className="w-6 h-6" /> Profile
+            <UserIcon className="w-6 h-6" /> Profile
           </Button>
           <Button
             className={`${pathname === "/users/dashboard/favorite" ? "bg-red-400" : "bg-transparent"} hover:bg-red-400 shadow-none flex items-center gap-2 justify-start`}

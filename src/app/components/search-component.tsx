@@ -42,7 +42,6 @@ export default function SearchNimeComponent() {
             type="text"
             placeholder="Cari Anime"
             ref={InputRef}
-            onChange={(e) => console.log(e.target.value)}
             className="bg-transparent text-white font-sans md:w-[400px]"
           />
           <Button

@@ -7,9 +7,10 @@ interface KomentarProps {
   params: { animeId: number };
 }
 
-export async function GET(_request: NextRequest, { params }: KomentarProps) {
+export async function GET(request: NextRequest, { params }: KomentarProps) {
   try {
-    const komentar = await komentarService.getKomentarByAnimeId(Number(params.animeId));
+    const {animeId} = await params;
+    const komentar = await komentarService.getKomentarByAnimeId(Number(animeId));
     if (komentar.length === 0) {
       return NextResponse.json(
         { message: "Komentar tidak ditemukan" },
@@ -21,13 +22,14 @@ export async function GET(_request: NextRequest, { params }: KomentarProps) {
     return NextResponse.json({ message: `Error : ${error}` }, { status: 500 });
   }
 }
+
 export async function POST(request: NextRequest, { params }: KomentarProps) {
   try {
-    const animeId = Number(params.animeId);
+    const {animeId} = params;
     const body = await request.json();
-    const { komentar, name, image } = body;
+    const { komentar, id, image } = body;
 
-    if (!name) {
+    if (!id) {
       return NextResponse.json(
         { message: "Harap login terlebih dahulu" },
         { status: 400 }
@@ -41,9 +43,9 @@ export async function POST(request: NextRequest, { params }: KomentarProps) {
       );
     }
 
-    const existingUser = await prisma.user.findFirst({
+    const existingUser = await prisma.user.findUnique({
       where: {
-        name,
+        id,
       },
     });
 
@@ -63,10 +65,9 @@ export async function POST(request: NextRequest, { params }: KomentarProps) {
 
     const createdKomentar = await komentarService.createKomentar({
       komentar,
-      name,
       image,
       userId: existingUser.id,
-      animeId,
+      animeId : Number(animeId),
     });
 
     return NextResponse.json({ data: createdKomentar }, { status: 201 });

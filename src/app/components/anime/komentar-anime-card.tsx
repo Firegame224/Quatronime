@@ -18,7 +18,7 @@ export default function KomentarAnimeCard({ params, data }: any) {
                 item.image :
                 "https://i.pinimg.com/736x/09/7d/3c/097d3cf1d036e549d1caa10ad9268dfe.jpg"
               }
-              alt={item.name}
+              alt={item.id}
               width={50}
               height={50}
               className="rounded-full w-7 h-7 md:w-10 md:h-10"

@@ -42,8 +42,7 @@ export default function AnimeKomentarDelete({ data, params }: KomentarProps) {
       setIsLoading(false);
     }
   };
-  console.log(params);
-  console.log(data.id);
+
   return (
     <>
       <AlertModal isOpen={isOpen} loading={isLoading} onClose={() => setIsOpen(false)} onConfirm={handleDelete} />

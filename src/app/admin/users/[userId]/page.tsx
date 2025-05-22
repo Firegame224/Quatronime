@@ -25,7 +25,7 @@ export default async function UserSettingPage({ params }: UsersPageProps) {
     port: `${process.env.NEXT_PUBLIC_API_URL}/api/users/${user?.id}/collections`,
   });
 
-  console.log(favorites)
+
   const { data: komentar } = await fetcher({
     port: `${process.env.NEXT_PUBLIC_API_URL}/api/users/${user?.id}/komentar`,
   });

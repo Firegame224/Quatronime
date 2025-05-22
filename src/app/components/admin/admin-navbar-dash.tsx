@@ -19,9 +19,11 @@ function NavItem({ href, icon, label } : { href: string; icon: React.ReactNode; 
       </Link>
     );
   }
+
 export default async function AdminNavbarDash() {
     const session = await AuthSession();
     const anime = await prisma.anime2.findMany();
+    
   return (
     <>
     <nav className="w-full p-5 bg-red-700 shadow-lg h-full rounded-r-lg hidden md:block">

@@ -3,6 +3,27 @@ import { NextRequest, NextResponse } from "next/server";
 interface UserMethodProps {
   params: { userId: string };
 }
+
+export async function GET(request: NextRequest, { params }: UserMethodProps) {
+  try {
+    const { userId } = await params;
+
+    const user = await prisma.user.findUnique({
+      where: {
+        id: userId,
+      },
+    });
+    return NextResponse.json(
+      { data: user, message: "Berhasil Update User Role" },
+      { status: 200 }
+    );
+  } catch (error) {
+    return NextResponse.json(
+      { message: `Error ada di Catch: ${error}` },
+      { status: 500 }
+    );
+  }
+}
 export async function PATCH(request: NextRequest, { params }: UserMethodProps) {
   try {
     const body = await request.json();
@@ -66,7 +87,7 @@ export async function DELETE(
         userId,
       },
     });
-    
+
     const deletedUser = await prisma.user.delete({
       where: {
         id: userId,

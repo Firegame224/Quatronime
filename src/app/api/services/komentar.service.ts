@@ -29,7 +29,6 @@ export class KomentarService {
   public async createKomentar(data: {
     animeId: number;
     userId: string;
-    name: string;
     image: string;
     komentar: string;
   }) {
@@ -37,7 +36,7 @@ export class KomentarService {
       "",
       data.animeId,
       data.userId,
-      data.name,
+      "",
       data.image,
       data.komentar
     );
@@ -45,7 +44,6 @@ export class KomentarService {
       data: {
         animeId: komentar.animeId,
         userId: komentar.userId,
-        name: komentar.name,
         image: komentar.image,
         komentar: komentar.komentar,
       },

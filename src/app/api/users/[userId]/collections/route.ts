@@ -4,7 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 const collectionServices = new CollectionService();
 export async function GET(_request: NextRequest, {params} : {params : {userId : string}}) {
     try {
-        const userId = params.userId;
+        const {userId} = await params;
         const collections = await collectionServices.getCollectionByUserId(userId);
 
         if (collections.length === 0) {

@@ -13,7 +13,7 @@ import { FaSpinner } from "react-icons/fa";
 interface KomentarProps {
   params: number;
 }
-export default function KomentarAnimeInput({ params }: KomentarProps) {
+export default function KomentarAnimeInput({ params  }: KomentarProps) {
   const { data: session } = useSession();
   const [komentar, setkomentar] = useState<string>("");
   const router = useRouter();
@@ -21,7 +21,7 @@ export default function KomentarAnimeInput({ params }: KomentarProps) {
   const [onInput, setOninput] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [onOpen, setOnOpen] = useState<boolean>(false);
-
+  
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const value = e.target.value;
     setkomentar(value);
@@ -46,7 +46,7 @@ export default function KomentarAnimeInput({ params }: KomentarProps) {
         headers: {
           "content-type": "application/json",
         },
-        body: JSON.stringify({ name: session?.user.name, komentar , image: session?.user.image }),
+        body: JSON.stringify({ id:session?.user.id , komentar , image: session?.user.image }),
       });
 
       if (!response.ok) {
@@ -59,7 +59,7 @@ export default function KomentarAnimeInput({ params }: KomentarProps) {
         router.refresh();
       }
     } catch (error) {
-      console.log("error", error);
+
       toast.error(`Telah Terjadi error di catch handle Submit ${error}`);
     } finally {
       setIsLoading(false);

@@ -49,7 +49,7 @@ export const AnimeModal = () => {
       
       const data = await response.json();
       const anime = data.data
-      console.log("Ini adlalah id dari anime",anime.id)
+
       toast.success("Anime berhasil ditambahkan")
       nimeModals.onClose();
       window.location.assign(`/admin/dashboard/${anime.id}`);
@@ -58,7 +58,6 @@ export const AnimeModal = () => {
     } finally {
       setIsLoading(false);
     }
-    console.log(values);
   };
   return (
     <Modal

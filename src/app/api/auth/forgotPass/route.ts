@@ -24,7 +24,6 @@ export async function PATCH(request: NextRequest) {
             return NextResponse.json({ message: "User tidak ditemukan" }, { status: 404 });
         }
   
-        console.log("Password updated successfully!");
         return NextResponse.json({ message: "Password berhasil diubah" }, { status: 200 });
   
     } catch (error) {

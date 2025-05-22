@@ -7,16 +7,28 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { ArrowLeft, LogInIcon, LogOutIcon, Menu, User, UserPlus } from "lucide-react";
+import { fetchOne } from "@/libs/fetcher";
+import { User } from "@prisma/client";
+import { ArrowLeft, LogInIcon, LogOutIcon, Menu, UserIcon, UserPlus } from "lucide-react";
 import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function NavbarSmall() {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const { data: session } = useSession();
+  const [user , setUser] = useState<User>()
+
+  useEffect(() => {
+      const getUser = async () => {
+        const data = await fetchOne({port :`${process.env.NEXT_PUBLIC_API_URL}/api/users/${session?.user.id}`})
+  
+        setUser(data)
+      }
+      getUser()
+    },[session?.user.id])
   return (
     <Popover open={isOpen} onOpenChange={setIsOpen}>
       <PopoverTrigger asChild>
@@ -54,14 +66,14 @@ export default function NavbarSmall() {
                 <CommandItem onSelect={() => setIsOpen(false)} className="p-2">
                   <Link
                     href={
-                      session.user.role === "USER"
+                      user?.role === "USER"
                         ? "/users/dashboard"
                         : "/admin"
                     }
                     className="w-full p-2 rounded-md hover:bg-gray-100 flex items-center gap-4 justify-center text-sm"
                   >
-                    <User className="w-6 h-6" />
-                    {session.user.name  ? session.user.name : session.user.email}
+                    <UserIcon className="w-6 h-6" />
+                    {user?.name  ? user.name : user?.email}
                   </Link>
                 </CommandItem>
                 <CommandItem onSelect={() => setIsOpen(false)} className="p-2">

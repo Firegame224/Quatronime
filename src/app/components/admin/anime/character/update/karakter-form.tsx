@@ -53,8 +53,7 @@ const KarakterForm: React.FC<KarakterFormProps> = ({ data }) => {
   const titleButton = charId ? "Update Data" : "Tambahkan Karakter";
   const animeId = parseInt(params.animeId as string, 10);
   const isi = charId ? "Edit data Karakter" : "Tambah data Karakter"
-  console.log(animeId)
-  console.log(charId)
+
   const onDelete = async () => {
     try {
       setIsLoading(true);

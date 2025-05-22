@@ -8,7 +8,6 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 
-
 export default function AnimeButtonFavorites({
   animeId,
   data,
@@ -24,9 +23,9 @@ export default function AnimeButtonFavorites({
     router.push("/auth/signIn");
   };
   const handleAddFavorite = async () => {
+    setIsLoading(true);
     try {
-      setIsLoading(true);
-      const response = await fetch(`/api/nimes/${animeId}/favorites` ,{
+      const response = await fetch(`/api/nimes/${animeId}/favorites`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
@@ -47,9 +46,9 @@ export default function AnimeButtonFavorites({
     }
   };
   const handleDeleteFavorite = async () => {
+    setIsLoading(true);
     try {
-      setIsLoading(true);
-      const response = await fetch(`/api/nimes/${animeId}/favorites` ,{
+      const response = await fetch(`/api/nimes/${animeId}/favorites`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -105,6 +104,7 @@ export default function AnimeButtonFavorites({
             <Button
               className="group text-white border-2 hover:border-[#fc0b03] justify-center hover:shadow-red-500/50 flex transition absolute bottom-1 right-4 ease-in duration-500 items-center p-0 rounded-full"
               size={"icon"}
+              disabled={isLoading}
               onClick={handleAddFavorite}
             >
               <Bookmark

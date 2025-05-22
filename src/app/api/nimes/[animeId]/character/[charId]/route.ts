@@ -36,13 +36,6 @@ export async function PATCH(
       );
     }
     
-    console.log(
-      "Updating karakter dengan animeId:",
-      animeId,
-      "dan charId:",
-      charId
-    );
-    
     const Chardb = await karakterServices.updateKarakter(animeId, charId, body);
 
     return NextResponse.json(

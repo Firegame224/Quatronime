@@ -48,7 +48,7 @@ const SettingUsersForm: React.FC<SettingsUserFormProps> = ({ data }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isActive, setIsActive] = useState(false);
   const [onChangeImage, setOnChangeImage] = useState(false);
-  console.log(session?.user, "Ini adalah data sessiion");
+
   const handleSubmit = async (values: SettingsUserValues) => {
     try {
       setIsLoading(true);
@@ -65,7 +65,7 @@ const SettingUsersForm: React.FC<SettingsUserFormProps> = ({ data }) => {
       }
       if (response.ok) {
         const UpdateUser = await response.json();
-        console.log(UpdateUser, "Ini adalah data sessiion yg sudah berubah");
+
         await update({
           ...session,
           user: {

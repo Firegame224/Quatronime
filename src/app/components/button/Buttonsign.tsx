@@ -1,11 +1,25 @@
+'use client'
 import { useSession } from "next-auth/react";
 import LogOutbutton from "./logout";
 import ButtonSign from "./sign";
 import Link from "next/link";
+import { fetchOne } from "@/libs/fetcher";
+import { useEffect, useState } from "react";
+import { User } from "@prisma/client";
 
 export default function SessionNav() {
   const { data: session, status } = useSession();
-  if (status === "loading")
+      const [user , setUser] = useState<User>()
+      useEffect(() => {
+        const getUser = async () => {
+          const data = await fetchOne({port :`${process.env.NEXT_PUBLIC_API_URL}/api/users/${session?.user.id}`})
+    
+          setUser(data)
+        }
+        getUser()
+      },[session?.user.id])
+      
+  if (status === "loading" || !user)
     return (
       <div className="flex md:order-2 space-x-3 md:space-x-0 animate-pulse">
       <Link

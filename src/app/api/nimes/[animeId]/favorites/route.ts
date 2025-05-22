@@ -13,8 +13,8 @@ const collectionServices = new CollectionService();
 const animeServices = new AnimeService();
 export async function GET(_request: NextRequest, {params} : FavoritesProps) {
   try {
-    const animeId = Number(params.animeId);
-    const favorites = await collectionServices.getCollectionByAnimeId({animeId});
+    const {animeId} = await params;
+    const favorites = await collectionServices.getCollectionByAnimeId({animeId :Number(animeId)});
 
     if (favorites.length === 0) {
       return NextResponse.json({message : "Favorites not found"},{status : 404})
