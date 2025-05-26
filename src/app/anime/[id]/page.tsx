@@ -63,7 +63,7 @@ export default async function DeskAnimePage({
       <NavbarAnime />
       <div className="md:flex gap-5 w-full">
         <div className="flex flex-col items-center h-full md:h-screen">
-          <section className=" h-full w-full md:w-full relative">
+          <section className=" h-full w-full mx-h-[700px] md:w-full relative">
             <Image
               src={
                 nime.imageUrl ||

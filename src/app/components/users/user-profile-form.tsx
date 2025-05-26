@@ -10,7 +10,6 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -44,7 +43,6 @@ const SettingUsersForm: React.FC<SettingsUserFormProps> = ({ data }) => {
     },
   });
 
-  const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [isActive, setIsActive] = useState(false);
   const [onChangeImage, setOnChangeImage] = useState(false);
@@ -77,7 +75,7 @@ const SettingUsersForm: React.FC<SettingsUserFormProps> = ({ data }) => {
         });
         setIsActive(false);
         toast.success("Profile berhasil di ubah");
-        router.refresh();
+        window.location.reload();
       }
     } catch (error) {
       toast.error("Telah Terjadi error di catch handle Submit" + error);

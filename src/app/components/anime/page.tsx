@@ -25,12 +25,12 @@ export default async function AnimePage() {
       <div className="flex flex-col justify-between items-center w-full min-h-screen">
         <Kartu Api={topAnime} />
       </div>
-      <Headernime Teks="Rekomendasi" href="" link="" />
+      <Headernime Teks="Rekomendasi" href="" link="#" />
       <div className="flex flex-col justify-between items-center w-full min-h-screen">
         <Kartu Api={recomAnime} />
       </div>
       <div className="flex flex-col justify-between items-center w-full">
-        <Headernime Teks="Cari Berdasarkan Genre" href="" link="" />
+        <Headernime Teks="Cari Berdasarkan Genre" href="" link="#" />
         <AnimeGenreButton/>
       </div>
     </div>

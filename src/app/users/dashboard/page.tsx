@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import SettingUsersForm from "@/app/components/users/users-profile-form";
+import SettingUsersForm from "@/app/components/users/user-profile-form";
 import prisma from "@/libs/prisma";
 import { AuthSession } from "@/libs/session";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { Separator } from "@/components/ui/separator";
-import UsersFavoritesKomentar from "@/app/components/users/users-favorites-komentar";
+import UsersFavoritesKomentar from "@/app/components/users/user-favorites-komentar";
 import { fetcher } from "@/libs/fetcher";
 
 export default async function Dashboard() {

@@ -3,7 +3,7 @@
 
 import { Button } from "@/components/ui/button";
 import React from "react";
-import UsersKomentarCard from "./users-komentar-card";
+import UsersKomentarCard from "./user-komentar-card";
 import Kartu from "../anime/card";
 
 export default function UsersFavoritesKomentar({

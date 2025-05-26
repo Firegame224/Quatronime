@@ -4,11 +4,10 @@ import { Button } from "@/components/ui/button";
 import { LogOutIcon } from "lucide-react";
 import { signOut } from "next-auth/react";
 import { usePathname } from "next/navigation";
-import React, { useState } from "react";
+import { useState } from "react";
 
 export default function LogoutButton() {
   const pathname = usePathname();
-  // const router = useRouter();
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const HandleActive = () => {
@@ -19,9 +18,6 @@ export default function LogoutButton() {
     }, 1000);
   };
 
-  // const HandleBack = () => {
-  //   router.push("/");
-  // };
   return (
     <div>
       <AlertModal
@@ -32,10 +28,6 @@ export default function LogoutButton() {
       />
       {pathname.startsWith("/users") ? (
         <div className="w-full flex justify-end">
-          {/* <Button onClick={HandleBack} className="bg-red-600 hover:bg-red-400">
-            <ArrowLeft />
-            <h1>Kembali</h1>
-          </Button> */}
           <Button onClick={HandleActive} className="bg-red-600 hover:bg-red-400">
             <LogOutIcon />
             <h1>Logout</h1>
@@ -60,7 +52,7 @@ export function AdminLogoutButton() {
       setLoading(false);
       setOpen(true);
     }, 1000);
-  };
+};
   return (
     <div className="w-full">
       <AlertModal

@@ -2,7 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
-import SessionNav from "./button/Buttonsign";
+import SessionNav from "./button/button-auth";
 import { usePathname } from "next/navigation";
 import NavbarSmall from "./navbar-sm";
 import SearchNimeComponent from "./search-component";

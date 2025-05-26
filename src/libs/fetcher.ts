@@ -1,3 +1,4 @@
+// Helper untuk fetching data jamak (array)
 export async function fetcher({ port }: { port: string }) {
   const response = await fetch(port , {
     method: "GET",
@@ -6,6 +7,7 @@ export async function fetcher({ port }: { port: string }) {
   return { data: data.data ?? [] ?? {}};
 }
 
+// Helper untuk fetching data tunggal (objek)
 export async function fetchOne({port} : {port : string}) {
   const response = await fetch(port)
   const json = await response.json();

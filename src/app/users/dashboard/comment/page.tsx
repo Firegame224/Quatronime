@@ -1,4 +1,4 @@
-import UsersKomentarCard from "@/app/components/users/users-komentar-card";
+import UsersKomentarCard from "@/app/components/users/user-komentar-card";
 import { fetcher } from "@/libs/fetcher";
 import { AuthSession } from "@/libs/session";
 import { ArrowLeft } from "lucide-react";
